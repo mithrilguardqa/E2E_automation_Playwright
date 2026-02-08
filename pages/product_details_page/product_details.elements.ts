@@ -1,0 +1,16 @@
+export const elements = Object.freeze({
+  productName: `.product-information h2`,
+  productCategory: `.product-information p:first-of-type`,
+  productPrice: `.product-information span span`,
+  productAvailability: `//b[text()='Availability:']/..`,
+  productCondition: `//b[text()='Condition:']/..`,
+  productBrand: `//b[text()='Brand:']/..`,
+  quantityInput: `input#quantity`,
+  addToCartButton: `button.cart`,
+  writeReviewTitle: `//a[text()='Write Your Review']`,
+  reviewNameField: `input#name`,
+  reviewEmailField: `input#email`,
+  reviewTextField: `textarea#review`,
+  submitReviewButton: `button#button-review`,
+  reviewSuccessMessage: `//span[text()='Thank you for your review.']`,
+});
