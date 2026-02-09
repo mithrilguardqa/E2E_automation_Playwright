@@ -1,44 +1,17 @@
 export const elements = Object.freeze({
-  // Login section
-  loginSectionTitle: `//h2[text()='Login to your account']`,
-  loginEmailField: `input[data-qa="login-email"]`,
-  loginPasswordField: `input[data-qa="login-password"]`,
-  loginButton: `button[data-qa="login-button"]`,
-  loginErrorMessage: `//p[contains(text(),'Your email or password is incorrect!')]`,
+  // Page title
+  pageTitle: `.page-title h1`,
 
-  // Signup section
-  signupSectionTitle: `//h2[text()='New User Signup!']`,
-  signupNameField: `input[data-qa="signup-name"]`,
-  signupEmailField: `input[data-qa="signup-email"]`,
-  signupButton: `button[data-qa="signup-button"]`,
-  signupErrorMessage: `//p[contains(text(),'Email Address already exist!')]`,
+  // Returning customer (login) section
+  returningCustomerTitle: `.returning-wrapper .title strong`,
+  loginEmailField: `input#Email`,
+  loginPasswordField: `input#Password`,
+  rememberMeCheckbox: `input#RememberMe`,
+  forgotPasswordLink: `a[href="/passwordrecovery"]`,
+  loginButton: `.returning-wrapper .login-button`,
+  loginErrorMessage: `.message-error`,
 
-  // Signup form (Account Information - after clicking Signup)
-  accountInfoTitle: `//b[text()='Enter Account Information']`,
-  titleMr: `input#id_gender1`,
-  titleMrs: `input#id_gender2`,
-  passwordField: `input#password`,
-  daysDropdown: `select#days`,
-  monthsDropdown: `select#months`,
-  yearsDropdown: `select#years`,
-  newsletterCheckbox: `input#newsletter`,
-  offersCheckbox: `input#optin`,
-  firstNameField: `input#first_name`,
-  lastNameField: `input#last_name`,
-  companyField: `input#company`,
-  address1Field: `input#address1`,
-  address2Field: `input#address2`,
-  countryDropdown: `select#country`,
-  stateField: `input#state`,
-  cityField: `input#city`,
-  zipcodeField: `input#zipcode`,
-  mobileNumberField: `input#mobile_number`,
-  createAccountButton: `button[data-qa="create-account"]`,
-
-  // Account Created page
-  accountCreatedTitle: `//b[text()='Account Created!']`,
-  continueButton: `a[data-qa="continue-button"]`,
-
-  // Account Deleted page
-  accountDeletedTitle: `//b[text()='Account Deleted!']`,
+  // New customer (register) section
+  newCustomerTitle: `.new-wrapper .title strong`,
+  registerButton: `.new-wrapper .register-button`,
 });

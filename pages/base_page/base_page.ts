@@ -95,15 +95,6 @@ export const checkElementText = async (
   await expect(field).toHaveText(value);
 };
 
-export const checkElementContainsText = async (
-  page: Page,
-  selector: string,
-  value: string
-): Promise<void> => {
-  const field: Locator = await getLocator(page, selector);
-  await expect(field).toContainText(value);
-};
-
 export const checkElementValue = async (
   page: Page,
   selector: string,
@@ -159,45 +150,73 @@ export const navigateToHomepage = async (page: Page): Promise<void> => {
   await page.goto(config.baseUrl);
 };
 
-export const clickNavHome = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navHome);
+export const clickLogo = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.logo);
 };
 
-export const clickNavProducts = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navProducts);
+export const clickHeaderRegister = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.headerRegister);
 };
 
-export const clickNavCart = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navCart);
+export const clickHeaderLogin = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.headerLogin);
 };
 
-export const clickNavSignupLogin = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navSignupLogin);
+export const clickHeaderLogout = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.headerLogout);
 };
 
-export const clickNavContactUs = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navContactUs);
+export const clickHeaderWishlist = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.headerWishlist);
 };
 
-export const clickNavLogout = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navLogout);
+export const clickHeaderCart = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.headerCart);
 };
 
-export const clickNavDeleteAccount = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navDeleteAccount);
+export const clickHeaderAccount = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.headerAccount);
 };
 
-export const verifyUserIsLoggedIn = async (page: Page, username: string): Promise<void> => {
-  await checkElementContainsText(page, baseElements.navLoggedInAs, `Logged in as ${username}`);
+export const clickNavComputers = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navComputers);
 };
 
-export const dismissConsentPopup = async (page: Page): Promise<void> => {
-  try {
-    const consent = page.locator(baseElements.consentButton);
-    if (await consent.isVisible({ timeout: 3000 })) {
-      await consent.click();
-    }
-  } catch {
-    // Consent popup not present, continue
-  }
+export const clickNavElectronics = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navElectronics);
+};
+
+export const clickNavApparel = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navApparel);
+};
+
+export const clickNavDigitalDownloads = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navDigitalDownloads);
+};
+
+export const clickNavBooks = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navBooks);
+};
+
+export const clickNavJewelry = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navJewelry);
+};
+
+export const clickNavGiftCards = async (page: Page): Promise<void> => {
+  await clickElement(page, baseElements.navGiftCards);
+};
+
+export const searchForProduct = async (page: Page, searchTerm: string): Promise<void> => {
+  await fillFieldInput(page, baseElements.searchInput, searchTerm, "value");
+  await clickElement(page, baseElements.searchButton);
+};
+
+export const verifyUserIsLoggedIn = async (page: Page): Promise<void> => {
+  await isElementVisible(page, baseElements.headerAccount, true);
+  await isElementVisible(page, baseElements.headerLogout, true);
+};
+
+export const verifyUserIsLoggedOut = async (page: Page): Promise<void> => {
+  await isElementVisible(page, baseElements.headerRegister, true);
+  await isElementVisible(page, baseElements.headerLogin, true);
 };

@@ -1,7 +1,6 @@
 import { Page } from "@playwright/test";
 import {
   clickElement,
-  fillFieldInput,
   isElementVisible,
   checkElementContainsText,
 } from "../base_page/base_page.js";
@@ -18,12 +17,15 @@ export const verifyProductName = async (page: Page, name: string): Promise<void>
   await checkElementContainsText(page, elements.productName, name);
 };
 
-export const verifyProductCategory = async (page: Page, category: string): Promise<void> => {
-  await checkElementContainsText(page, elements.productCategory, category);
+export const verifyProductAvailability = async (
+  page: Page,
+  availability: string
+): Promise<void> => {
+  await checkElementContainsText(page, elements.productAvailability, availability);
 };
 
-export const verifyProductBrand = async (page: Page, brand: string): Promise<void> => {
-  await checkElementContainsText(page, elements.productBrand, brand);
+export const verifyShortDescription = async (page: Page, description: string): Promise<void> => {
+  await checkElementContainsText(page, elements.productShortDescription, description);
 };
 
 // Interaction functions
@@ -37,19 +39,28 @@ export const clickAddToCart = async (page: Page): Promise<void> => {
   await clickElement(page, elements.addToCartButton);
 };
 
-// Review functions
-export const writeReview = async (
-  page: Page,
-  name: string,
-  email: string,
-  review: string
-): Promise<void> => {
-  await fillFieldInput(page, elements.reviewNameField, name, "value");
-  await fillFieldInput(page, elements.reviewEmailField, email, "value");
-  await fillFieldInput(page, elements.reviewTextField, review, "value");
-  await clickElement(page, elements.submitReviewButton);
+export const clickAddToWishlist = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.addToWishlistButton);
 };
 
-export const verifyReviewSuccess = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.reviewSuccessMessage, true);
+export const clickAddToCompare = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.addToCompareButton);
+};
+
+export const clickEmailFriend = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.emailFriendButton);
+};
+
+// Notification bar
+export const verifySuccessNotification = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.barNotificationSuccess, true);
+};
+
+export const closeNotificationBar = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.barNotificationClose);
+};
+
+// Product reviews
+export const clickProductReviewsLink = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.productReviewsLink);
 };

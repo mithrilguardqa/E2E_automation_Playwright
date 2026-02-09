@@ -1,16 +1,31 @@
 export const baseElements = Object.freeze({
-  // Navbar elements (shared across all pages)
-  navHome: `a[href="/"]`,
-  navProducts: `a[href="/products"]`,
-  navCart: `a[href="/view_cart"]`,
-  navSignupLogin: `a[href="/login"]`,
-  navTestCases: `a[href="/test_cases"]`,
-  navApiTesting: `a[href="/api_list"]`,
-  navContactUs: `a[href="/contact_us"]`,
-  navLogout: `a[href="/logout"]`,
-  navDeleteAccount: `a[href="/delete_account"]`,
-  navLoggedInAs: `.navbar-nav li:last-child a`,
+  // Header bar links
+  headerRegister: `a.ico-register`,
+  headerLogin: `a.ico-login`,
+  headerLogout: `a.ico-logout`,
+  headerWishlist: `a.ico-wishlist`,
+  headerCart: `a.ico-cart`,
+  headerAccount: `a.ico-account`,
 
-  // Common elements
-  consentButton: `button.fc-cta-consent`,
+  // Top-level navigation menu
+  navComputers: `//a[@role='button' and text()='Computers']`,
+  navElectronics: `//a[@role='button' and text()='Electronics']`,
+  navApparel: `//a[@role='button' and text()='Apparel']`,
+  navDigitalDownloads: `//a[@role='button' and text()='Digital downloads']`,
+  navBooks: `//a[@role='button' and text()='Books']`,
+  navJewelry: `//a[@role='button' and text()='Jewelry']`,
+  navGiftCards: `//a[@role='button' and text()='Gift Cards']`,
+
+  // Search
+  searchInput: `#small-searchterms`,
+  searchButton: `//button[text()='Search']`,
+
+  // Currency selector
+  currencySelector: `#customerCurrency`,
+
+  // Footer
+  footerBlock: `.footer`,
+
+  // Logo
+  logo: `.header-logo a`,
 });

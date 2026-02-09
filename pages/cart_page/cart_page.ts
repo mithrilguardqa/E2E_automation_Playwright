@@ -10,15 +10,11 @@ import { elements } from "./cart.elements.js";
 
 // Verify functions
 export const verifyCartPage = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.cartInfoTable, true);
+  await isElementVisible(page, elements.cartTable, true);
 };
 
 export const verifyCartIsEmpty = async (page: Page): Promise<void> => {
   await isElementVisible(page, elements.emptyCartMessage, true);
-};
-
-export const verifyOrderPlaced = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.orderConfirmationTitle, true);
 };
 
 // Get cart info functions
@@ -34,51 +30,47 @@ export const getCartProductPrices = async (page: Page): Promise<string[]> => {
   return await getAllMatchingElementsText(page, elements.cartProductPrice);
 };
 
-export const getCartProductQuantities = async (page: Page): Promise<string[]> => {
-  return await getAllMatchingElementsText(page, elements.cartProductQuantity);
-};
-
 // Interaction functions
-export const removeProductByIndex = async (page: Page, index: number): Promise<void> => {
-  const deleteButtons = page.locator(elements.cartDeleteButton);
-  await deleteButtons.nth(index).click();
+export const updateQuantityByIndex = async (
+  page: Page,
+  index: number,
+  quantity: string
+): Promise<void> => {
+  const quantityInputs = page.locator(elements.cartProductQuantity);
+  const input = quantityInputs.nth(index);
+  await input.clear();
+  await input.fill(quantity);
 };
 
-export const clickProceedToCheckout = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.proceedToCheckoutButton);
+export const markForRemovalByIndex = async (page: Page, index: number): Promise<void> => {
+  const checkboxes = page.locator(elements.cartRemoveCheckbox);
+  await checkboxes.nth(index).check();
 };
 
-export const clickRegisterLoginFromCart = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.registerLoginLink);
+export const clickUpdateCart = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.updateCartButton);
+};
+
+export const clickContinueShopping = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.continueShoppingButton);
+};
+
+// Discount and gift card functions
+export const applyDiscountCode = async (page: Page, code: string): Promise<void> => {
+  await fillFieldInput(page, elements.discountCodeInput, code, "value");
+  await clickElement(page, elements.applyDiscountButton);
+};
+
+export const applyGiftCardCode = async (page: Page, code: string): Promise<void> => {
+  await fillFieldInput(page, elements.giftCardInput, code, "value");
+  await clickElement(page, elements.applyGiftCardButton);
 };
 
 // Checkout functions
-export const fillCheckoutComment = async (page: Page, comment: string): Promise<void> => {
-  await fillFieldInput(page, elements.commentTextArea, comment, "value");
+export const agreeToTermsOfService = async (page: Page): Promise<void> => {
+  await page.locator(elements.termsOfServiceCheckbox).check();
 };
 
-export const clickPlaceOrder = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.placeOrderButton);
-};
-
-// Payment functions
-export const fillPaymentDetails = async (
-  page: Page,
-  paymentInfo: {
-    nameOnCard: string;
-    cardNumber: string;
-    cvc: string;
-    expiryMonth: string;
-    expiryYear: string;
-  }
-): Promise<void> => {
-  await fillFieldInput(page, elements.nameOnCardField, paymentInfo.nameOnCard, "value");
-  await fillFieldInput(page, elements.cardNumberField, paymentInfo.cardNumber, "value");
-  await fillFieldInput(page, elements.cvcField, paymentInfo.cvc, "value");
-  await fillFieldInput(page, elements.expiryMonthField, paymentInfo.expiryMonth, "value");
-  await fillFieldInput(page, elements.expiryYearField, paymentInfo.expiryYear, "value");
-};
-
-export const clickPayAndConfirm = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.payAndConfirmButton);
+export const clickCheckout = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.checkoutButton);
 };
