@@ -1,29 +1,35 @@
 export const elements = Object.freeze({
-  cartInfoTable: `#cart_info_table`,
-  cartProductRow: `#cart_info_table tbody tr`,
-  cartProductName: `.cart_description h4 a`,
-  cartProductPrice: `.cart_price p`,
-  cartProductQuantity: `.cart_quantity button`,
-  cartProductTotal: `.cart_total_price`,
-  cartDeleteButton: `.cart_quantity_delete a`,
-  emptyCartMessage: `//b[text()='Cart is empty!']`,
-  proceedToCheckoutButton: `.btn.check_out`,
-  registerLoginLink: `//u[text()='Register / Login']`,
+  // Cart table
+  cartTable: `.cart`,
+  cartProductRow: `.cart tbody tr`,
+  cartProductName: `.cart .product a.product-name`,
+  cartProductPrice: `.cart .product-unit-price`,
+  cartProductQuantity: `.cart .qty-input`,
+  cartProductTotal: `.cart .product-subtotal`,
+  cartRemoveCheckbox: `.cart .remove-from-cart input`,
 
-  // Checkout section
-  deliveryAddressSection: `#address_delivery`,
-  billingAddressSection: `#address_invoice`,
-  commentTextArea: `textarea.form-control`,
-  placeOrderButton: `a.check_out`,
+  // Cart actions
+  updateCartButton: `.update-cart-button`,
+  continueShoppingButton: `.continue-shopping-button`,
+  emptyCartMessage: `.no-data`,
 
-  // Payment section
-  nameOnCardField: `input[data-qa="name-on-card"]`,
-  cardNumberField: `input[data-qa="card-number"]`,
-  cvcField: `input[data-qa="cvc"]`,
-  expiryMonthField: `input[data-qa="expiry-month"]`,
-  expiryYearField: `input[data-qa="expiry-year"]`,
-  payAndConfirmButton: `button[data-qa="pay-button"]`,
+  // Order summary
+  orderSummary: `.cart-footer .totals`,
+  orderSubTotal: `.cart-footer .order-subtotal .value-summary`,
+  orderTotal: `.cart-footer .order-total .value-summary`,
 
-  // Order confirmation
-  orderConfirmationTitle: `//b[text()='Order Placed!']`,
+  // Discount / Gift card
+  discountCodeInput: `input#discountcouponcode`,
+  applyDiscountButton: `.apply-discount-coupon-code-button`,
+  giftCardInput: `input#giftcardcouponcode`,
+  applyGiftCardButton: `.apply-gift-card-coupon-code-button`,
+
+  // Terms of service
+  termsOfServiceCheckbox: `input#termsofservice`,
+
+  // Checkout button
+  checkoutButton: `button#checkout`,
+
+  // Estimate shipping
+  estimateShippingButton: `.estimate-shipping-button`,
 });

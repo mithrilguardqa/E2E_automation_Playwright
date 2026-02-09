@@ -1,5 +1,5 @@
 import { Browser, chromium, Page } from "@playwright/test";
-import config from "./env.config.js";
+import config from "@env";
 
 async function globalSetup() {
   if (process.env.SKIP_GLOBAL_SETUP === "true") return;
@@ -9,7 +9,7 @@ async function globalSetup() {
   const page: Page = await context.newPage();
 
   await page.goto(config.baseUrl);
-
+  
   await browser.close();
 }
 

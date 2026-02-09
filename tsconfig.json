@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {},
+    "paths": {
+      "@pageObjects": ["page_objects"],
+      "@pageObjects/*": ["page_objects/*"],
+      "@env": ["env.config.ts"]
+    },
     "target": "ES2022",
     "module": "NodeNext",
     "lib": ["DOM", "ES6"],

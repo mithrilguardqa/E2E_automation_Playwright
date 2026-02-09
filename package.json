@@ -1,29 +1,18 @@
 {
-  "name": "e2e_api_with_playwright",
+  "name": "e2e_with_playwright",
+  "author": "Mithril Guard QA Company",
   "version": "1.0.0",
-  "description": "Mithril Guard Company E2E and API testing framework with Playwright",
-  "main": "index.ts",
+  "description": "Mithril Guard Company E2E testing framework with Playwright",
+  "main": "index.js",
   "scripts": {
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + ; npm install",
     "test": "npx playwright test",
-    "test/e2e/ui": "npx playwright test tests/e2e/ --ui",
-    "test/e2e/headed": "npx playwright test tests/e2e/ --headed",
-    "test/e2e/headed/debug": "npx playwright test tests/e2e/ --headed --debug",
-    "test/api": "npx playwright test tests/api/",
-    "test/api/ui": "npx playwright test tests/api/ --ui"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mithrilguardqa/e2e_api_with_playwright.git"
+    "test/e2e/ui": "npx playwright test --ui",
+    "test/e2e/headed": "npx playwright test --headed",
+    "test/e2e/headed/debug": "npx playwright test --headed --debug"
   },
   "keywords": [],
-  "author": "Mithril Guard QA Company",
   "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/mithrilguardqa/e2e_api_with_playwright/issues"
-  },
-  "homepage": "https://github.com/mithrilguardqa/e2e_api_with_playwright#readme",
   "dependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.2.2",
@@ -32,10 +21,8 @@
     "dotenv": "^17.2.4",
     "eslint": "^9.39.2",
     "eslint-plugin-import": "^2.32.0",
-    "form-data": "^4.0.5",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0",
-    "zod": "^4.3.6"
+    "typescript-eslint": "^8.54.0"
   }
 }
