@@ -1,145 +1,144 @@
 # Mithril Guard QA Company
 
-## E2E testing framework using Playwright
+## E2E Testing Framework using Playwright
 
-## 10 Happy paths coverage flows
+> 10 happy-path coverage flows across login, registration, search, cart, checkout, orders, reviews, and product comparison.
 
-## First suite - login and registration flows
+---
 
-### 1. Register user - positive test
+## Suite 1 -- Login & Registration Flows
 
-- individual test creating a unique user every time
-- steps executed:
+### 1. Register User (Positive)
 
-* navigate to homepage
-* verify user is NOT logged in
-* navigate to Register page
-* fill all the required field
-* click "Register" button
-* check 'your registration is complete'
-* check user is logged after registration
-* navigate to 'Customer info' screen in My account page
-* verify data entered during registration is correct
-* verify user is subscribed to 'Newsletter'
+- **Scope:** Individual test creating a unique user every time.
+- **Steps:**
+  1. Navigate to homepage
+  2. Verify user is NOT logged in
+  3. Navigate to Register page
+  4. Fill all the required fields
+  5. Click "Register" button
+  6. Check "Your registration is complete" message
+  7. Check user is logged in after registration
+  8. Navigate to "Customer info" screen in My Account page
+  9. Verify data entered during registration is correct
+  10. Verify user is subscribed to "Newsletter"
 
-### 2. Register user - negative test - omit required field
+### 2. Register User -- Omit Required Field (Negative)
 
-- individual test to check if user cannot create user without the required field
-- steps executed:
+- **Scope:** Individual test to check that a user cannot register without filling in all required fields.
+- **Steps:**
+  1. Navigate to homepage
+  2. Verify user is NOT logged in
+  3. Navigate to Register page
+  4. Try to register with a completely blank form
+  5. Check error messages
+  6. Fill first name, omit last name
+  7. Enter a wrong-format email and check validation
+  8. Omit "Your password" fields
+  9. Try to register again and check only the missing fields show errors
+  10. Check Password and Confirm Password fields have the same input validation
 
-* navigate to homepage
-* verify user is NOT logged in
-* navigate to Register page
-* try to register complete blank register form
-* check error messages
-* fill first name
-* omit last name
-* enter wrong format email and check verification works
-* omit Your password fields
-* try to register again and check only the missing fields have errors
-* check Password field and Confirm password field have same input validation
+### 3. Login with Correct Credentials (Positive)
 
-### 3. Login with correct credentials - positive test
+- **Scope:** Individual test to check that a user can log in with previously created credentials.
+- **Prerequisites:** Create user before the test (in `beforeEach` hook -- generally done via API call, here with the UI).
+- **Steps:**
+  1. Navigate to homepage
+  2. Verify user is NOT logged in
+  3. Navigate to Login page
+  4. Fill fields with data from the registration prerequisites
+  5. Hit Login button and check that user is logged in successfully -- "Register" and "Login" are now "My Account" and "Log out"
 
-- individual test to check if user can login with the previously created user registration
-- prerequisites -> create user before the test - in beforeEach hook - generally done with API call - here with the UI
-- steps executed:
+### 4. Login with Incorrect Credentials (Negative)
 
-* navigate to homepage
-* verify user is NOT logged in
-* navigate to Login page
-* fill fields with the data from the registration from the prerequisites
-* hit login button and check that user is logged in successfully - Register and Login are now My Account and Log out
+- **Scope:** Individual test to check that a user cannot log in with wrong credentials.
+- **Steps:**
+  1. Navigate to homepage and verify user is NOT logged in
+  2. Navigate to Login page
+  3. Fill fields with different usernames and passwords and attempt login
+  4. Check the error is intentionally vague (does not reveal whether email or password is wrong -- security best practice)
 
-### 4. Login with incorrect credentials - negative test
+### 5. Forgotten Password Flow (Positive)
 
-- individual test to check if user can login with unreal/wrong credentials
-- steps executed:
+> Currently no implementation -- no emails are sent.
 
-* navigate to homepage and verify user is NOT logged in
-* navigate to login page
-* fill fields with different usernames and password and check if user can login
-* check the error is not descriptive enough so its NOT clear which is wrong - email or password - security
+---
 
-### 5. Execute Forgotten password flow - positive test - currently no implementation cause no emails are sent
+## Suite 2 -- Search, Cart & Checkout Flows
 
-### 6. Search for 1 of each products categories, add the searched item in the cart, checkout the cart, estimate shipping, proceed to finish the order, check the order information
+### 6. Search Products, Add to Cart, Checkout & Finish Order
 
-- individual test to check the whole user journey from searching an item to ordering it
-- prerequisites -> create user before the test
-- steps executed:
+- **Scope:** Individual test covering the full user journey from searching an item to placing an order.
+- **Prerequisites:** Create user before the test.
+- **Steps:**
+  1. Log in with the user
+  2. Search item 1 (Apple MacBook Pro) -- add to cart -- check success toast
+  3. Search item 2 (iPhone 16) -- add to cart -- check success toast
+  4. Search item 3 (Nike shoes) -- try to add without selecting color, size, and print
+  5. Choose color, size, and print, then add to cart
+  6. Search item 4 (Night Visions) -- add to cart -- check success toast
+  7. Search item 5 (Fahrenheit 451 by Ray Bradbury) -- add to cart -- check success toast
+  8. Search item 6 (Flower Girl Bracelet) -- add to cart -- check success toast
+  9. After each item, verify the cart counter increments
+  10. Click "Estimate shipping", fill data, and apply -- shipping should be $0
+  11. Check the full price for all products
+  12. Choose "Gift wrapping" and check the price increases by $10
+  13. Try to checkout without clicking "I agree..." -- check the error modal
+  14. Click "Checkout" button
+  15. Fill Country, City, Address, and other required fields
+  16. Click "Continue" on Shipping menu
+  17. Choose card payment -- check that an expired card triggers validation
+  18. Fill correct card number and remaining fields
+  19. Click "Confirm"
+  20. Click "Click here for order details." to open Order information
+  21. Verify all data in the Order information screen
 
-* login with the user
-* search item 1 -> add in cart -> check success toast - Apple Macbook Pro
-* search item 2 -> add in cart -> check success toast - iPhone 16
-* search item 3 -> Nike shoes -> try to add without color, size and print
-* choose color, size and print and add into the cart
-* search item 4 -> add in cart -> check success toast - Night Visions
-* search item 5 -> add in cart -> check success toast - Fahrenheit 451 by Ray Bradbury
-* search item 5 -> add in cart -> check success toast - Flower Girl Bracelet
-* after each item added check the cart (1) number
-* click on estimate shipping, fill data and apply - should be 0 for shipping
-* check the full price for all the products
-* choose 'Gift wrapping' and check the price is +10$
-* Try to checkout without clicking on I agree...
-* Check the error modal
-* Click on 'Checkout' button
-* Fill all Country, City, Address and other required fields
-* Click 'Continue' on Shipping menu
-* Choose card payment -> check first expired card has verification
-* Fill correct card number and other fields
-* Click on 'Confirm'
-* Click on 'Click here for order details.' button to check the Order information
-* Verify all data in the Order information screen
+### 7. Cancel Submitted Order from My Account (Positive)
 
-### 7. Cancel submitted order from My Account - positive test
+- **Scope:** Individual test covering the journey of canceling an order, editing it, and reordering.
+- **Prerequisites:** Create user + create order (normally done via API call).
+- **Steps:**
+  1. Go to the My Account page
+  2. Click "Cancel order" and confirm from the alert window
+  3. Check toast message and verify the status
+  4. Click "Reorder" button
+  5. Remove 2 items and Gift wrapping
+  6. Click "Agree..." and proceed to Checkout
+  7. Confirm Billing address
+  8. Confirm Shipping address
+  9. Confirm Shipping method
+  10. Change Payment method to "Check / Money order"
+  11. Proceed to "Confirm order"
+  12. Check success screen
+  13. Navigate to "Order information" again
+  14. Check all information for billing, shipping, and payments is updated correctly
+  15. Check the products reflect the edit
 
-- individual test to check the whole user journey from canceling the order -> editing the order -> reordering again the edited order
-- prerequisites -> create user + created order - normally done via API call
+---
 
-- steps executed:
+## Suite 3 -- Reviews & Comparison
 
-* Go the My account page
-* Click on 'Cancel order' and confirm from the alert window
-* Check toast message and check the status
-* Click on 'Reorder' button
-* Remove 2 items and Gift wrapping
-* Click on 'Agree..' and proceed to Checkout again
-* Confirm Billing address
-* Confirm Shipping address
-* Confirm Shipping method
-* Change Payment method to 'Check/Money order'
-* Proceed to 'Confirm order'
-* Check success screen
-* Navigate to 'Order information' again
-* Check all information for billing, shipping and payments is edited correctly
-* Check the new products are the correct after the edit
+### 8. Submit Product Reviews (Positive)
 
-### 8. Check user can submit reviews for items - positive test
+- **Scope:** Individual test covering the user journey for submitting a product review.
+- **Prerequisites:** Create user.
+- **Steps:**
+  1. Check user is on Homepage
+  2. Search or navigate to a product (MacBook Pro)
+  3. Read existing reviews
+  4. Add Review title, Review text, and Rating
+  5. Submit review and check success toast
+  6. Close toast and check the new review is now visible
+  7. Go to My Account > My Product Reviews and verify it appears there as well
 
-- individual test to check the whole user journey for submitting a product review
-- prerequisites -> create user
+### 9. Compare Products (Positive)
 
-- steps executed:
-
-* Check user is on Homepage
-* Search or navigate to a certain product - Macbook pro
-* Read reviews
-* Add Review title, Review text and Rating
-* Submit review and check success toast
-* 'X' on toast and check the new review is now visible
-* Go to My Account -> My Product reviews -> check if its visible there as well
-
-### 9. Check user can select items for comparison, navigate to compare screen and clear them afterwards
-
-- individual test to check the whole user journey of adding items for comparison and compare them against each other afterwards
-- prerequisites -> none - this functionality is accessible for all types of users
-
-- steps executed:
-
-* Check user is on Homepage
-* Add 4 items for comparison
-* Scroll down to the footer -> Compare products list
-* Check all the 4 items are compared against each other in the Compare products screen
-* Click on 1 items 'x' button to remove it from the list
-* Click on 'Clear list' button to remove all the other items left
+- **Scope:** Individual test covering the journey of adding items for comparison and comparing them.
+- **Prerequisites:** None -- this functionality is accessible for all user types.
+- **Steps:**
+  1. Check user is on Homepage
+  2. Add 4 items for comparison
+  3. Scroll down to the footer -- "Compare products" list
+  4. Check all 4 items are compared against each other in the Compare Products screen
+  5. Click an item's "X" button to remove it from the list
+  6. Click "Clear list" to remove all remaining items
