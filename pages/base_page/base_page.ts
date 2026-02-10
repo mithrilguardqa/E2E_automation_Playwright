@@ -152,8 +152,4 @@ export const getArrayOfObjectsPropertyValues = (array: any[], key: string): stri
 // Navigation helpers
 export const navigateToHomepage = async (page: Page): Promise<void> => {
   await page.goto(config.baseUrl);
-
-  if (await page.locator(baseElements.consentBanner).isVisible()) {
-    await page.locator(baseElements.consentBanner).click();
-  }
 };

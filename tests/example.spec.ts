@@ -10,6 +10,4 @@ test.describe("Homepage tests", () => {
   test("Verify homepage is visible", async ({ page }) => {
     await Homepage.verifyUserIsLoggedIn(page);
   });
-
-
 });
