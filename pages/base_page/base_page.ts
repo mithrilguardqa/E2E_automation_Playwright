@@ -153,6 +153,7 @@ export const getArrayOfObjectsPropertyValues = (array: any[], key: string): stri
 export const navigateToHomepage = async (page: Page): Promise<void> => {
   await page.goto(config.baseUrl);
 
-  const navBar: Locator = await getLocator(page, baseElements.navBar);
-  await navBar.waitFor({ state: "visible" });
+  if (await page.locator(baseElements.consentBanner).isVisible()) {
+    await page.locator(baseElements.consentBanner).click();
+  }
 };

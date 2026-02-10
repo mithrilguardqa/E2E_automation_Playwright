@@ -1,13 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
+import { navigateToHomepage } from "@pages/base_page/base_page";
+import { Homepage } from "@pages";
 
 test.describe("Homepage tests", () => {
-  test("Verify homepage is visible", async ({ page }) => {
-    await test.step("Navigate to homepage", async () => {
-      await page.goto("/");
-    });
-
-    await test.step("Verify homepage is visible", async () => {
-      
-    });
+  test.beforeEach(async ({ page }) => {
+    await navigateToHomepage(page);
   });
+
+  test("Verify homepage is visible", async ({ page }) => {
+    await Homepage.verifyHomepageIsVisible(page);
+  });
+
+  // test("Verify login is successful", async ({ page }) => {
+  //   const loggedInAsUsername = await Homepage.verifyLoginIsSuccessful(page);
+  //   console.log(loggedInAsUsername);
+  // });
 });
