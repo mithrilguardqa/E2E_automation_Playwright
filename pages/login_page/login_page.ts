@@ -2,8 +2,6 @@ import { Locator, Page } from "@playwright/test";
 import {
   clickElement,
   fillFieldInput,
-  isElementVisible,
-  checkElementText,
   getLocator,
   checkElementValue,
   isElementEnabled,
@@ -11,6 +9,10 @@ import {
 import { elements } from "./elements.js";
 
 // Login form
+export const clickOnSignupLoginButtonNavBar = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.signupLoginButtonNavBar, false);
+};
+
 export const fillLoginEmail = async (page: Page, email: string): Promise<void> => {
   await fillFieldInput(page, elements.emailFieldLogin, email, "value");
 };

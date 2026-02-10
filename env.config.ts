@@ -5,14 +5,20 @@ dotenv.config();
 
 interface TestConfig extends PlaywrightTestConfig {
   baseUrl: string;
+  email: string;
+  password: string;
 }
 
 const devConfig: TestConfig = {
   baseUrl: "https://automationexercise.com/",
+  email: process.env.EMAIL || "",
+  password: process.env.PASSWORD || "",
 };
 
 const prodConfig: TestConfig = {
   baseUrl: "https://prod.automationexercise.com/",
+  email: process.env.EMAIL || "",
+  password: process.env.PASSWORD || "",
 };
 
 // get the environment type from command line. If none, set it to default

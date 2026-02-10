@@ -6,6 +6,10 @@ export const verifyHomepageIsVisible = async (page: Page): Promise<void> => {
   await isElementVisible(page, elements.homepageLogo, true);
 };
 
+export const verifyUserIsLoggedIn = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.logoutButtonNavBar, true);
+};
+
 export const verifyLoginIsSuccessful = async (page: Page): Promise<string> => {
   const loggedInAsUsername: string[] = await getAllMatchingElementsText(
     page,

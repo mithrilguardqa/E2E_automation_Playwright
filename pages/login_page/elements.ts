@@ -1,5 +1,6 @@
 export const elements = Object.freeze({
   // Login form
+  signupLoginButtonNavBar: `//*[@href="/login"][normalize-space(.)='Signup / Login']`,
   emailFieldLogin: `//*[@class="login-form"]//input[@type='email']`,
   passwordFieldLogin: `//*[@class="login-form"]//input[@type='password']`,
   submitButton: `//*[@class="login-form"]//button[@type='submit']`,
