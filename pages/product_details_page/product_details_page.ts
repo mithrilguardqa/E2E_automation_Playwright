@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 import {
   clickElement,
   isElementVisible,
-  checkElementContainsText,
+
 } from "../base_page/base_page.js";
 import { elements } from "./product_details.elements.js";
 

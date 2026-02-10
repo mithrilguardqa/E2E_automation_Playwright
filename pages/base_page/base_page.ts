@@ -3,7 +3,7 @@ import { baseElements } from "./base.elements.js";
 import config from "../../env.config.js";
 
 export const randomString = (
-  length?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+  length?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13,
 ): string => {
   let timestampString: number = Math.floor(Date.now() / 1000) + Math.floor(Math.random() * 1000);
 
@@ -20,7 +20,7 @@ export const fillFieldInput = async (
   page: Page,
   selector: string,
   input: string,
-  inputType: "value" | "text"
+  inputType: "value" | "text",
 ): Promise<void> => {
   const field: Locator = await getLocator(page, selector);
 
@@ -39,7 +39,7 @@ export const fillFieldInput = async (
 export const clickElement = async (
   page: Page,
   selector: string,
-  force: boolean = false
+  force: boolean = false,
 ): Promise<void> => {
   const element: Locator = await getLocator(page, selector);
   await expect(element).toBeVisible();
@@ -50,7 +50,7 @@ export const clickElement = async (
 export const isElementVisible = async (
   page: Page,
   selector: string,
-  isVisible: boolean
+  isVisible: boolean,
 ): Promise<void> => {
   const field: Locator = await getLocator(page, selector);
   if (isVisible) {
@@ -63,7 +63,7 @@ export const isElementVisible = async (
 export const isElementEnabled = async (
   page: Page,
   selector: string,
-  isEnabled: boolean
+  isEnabled: boolean,
 ): Promise<void> => {
   const element: Locator = await getLocator(page, selector);
   if (isEnabled) {
@@ -76,7 +76,7 @@ export const isElementEnabled = async (
 export const isElementEmpty = async (
   page: Page,
   selector: string,
-  isEmpty: boolean = true
+  isEmpty: boolean = true,
 ): Promise<void> => {
   const field: Locator = await getLocator(page, selector);
   if (isEmpty) {
@@ -89,7 +89,7 @@ export const isElementEmpty = async (
 export const checkElementText = async (
   page: Page,
   selector: string,
-  value: string
+  value: string,
 ): Promise<void> => {
   const field: Locator = await getLocator(page, selector);
   await expect(field).toHaveText(value);
@@ -98,7 +98,7 @@ export const checkElementText = async (
 export const checkElementValue = async (
   page: Page,
   selector: string,
-  value: string
+  value: string,
 ): Promise<void> => {
   const field: Locator = await getLocator(page, selector);
   await expect(field).toHaveValue(value);
@@ -109,19 +109,23 @@ export const isLocatorAttributeValuePresent = async (
   selector: string,
   attribute: string,
   value: string,
-  isPresent: boolean
+  isPresent: boolean,
 ): Promise<void> => {
   const locator: Locator = await getLocator(page, selector);
   if (isPresent) {
-    await expect(locator).toHaveAttribute(attribute, value, { ignoreCase: true });
+    await expect(locator).toHaveAttribute(attribute, value, {
+      ignoreCase: true,
+    });
   } else {
-    await expect(locator).not.toHaveAttribute(attribute, value, { ignoreCase: true });
+    await expect(locator).not.toHaveAttribute(attribute, value, {
+      ignoreCase: true,
+    });
   }
 };
 
 export const getAllMatchingElementsText = async (
   page: Page,
-  selector: string
+  selector: string,
 ): Promise<string[]> => {
   const locator: Locator = await getLocator(page, selector);
 
@@ -148,75 +152,7 @@ export const getArrayOfObjectsPropertyValues = (array: any[], key: string): stri
 // Navigation helpers
 export const navigateToHomepage = async (page: Page): Promise<void> => {
   await page.goto(config.baseUrl);
-};
 
-export const clickLogo = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.logo);
-};
-
-export const clickHeaderRegister = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.headerRegister);
-};
-
-export const clickHeaderLogin = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.headerLogin);
-};
-
-export const clickHeaderLogout = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.headerLogout);
-};
-
-export const clickHeaderWishlist = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.headerWishlist);
-};
-
-export const clickHeaderCart = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.headerCart);
-};
-
-export const clickHeaderAccount = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.headerAccount);
-};
-
-export const clickNavComputers = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navComputers);
-};
-
-export const clickNavElectronics = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navElectronics);
-};
-
-export const clickNavApparel = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navApparel);
-};
-
-export const clickNavDigitalDownloads = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navDigitalDownloads);
-};
-
-export const clickNavBooks = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navBooks);
-};
-
-export const clickNavJewelry = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navJewelry);
-};
-
-export const clickNavGiftCards = async (page: Page): Promise<void> => {
-  await clickElement(page, baseElements.navGiftCards);
-};
-
-export const searchForProduct = async (page: Page, searchTerm: string): Promise<void> => {
-  await fillFieldInput(page, baseElements.searchInput, searchTerm, "value");
-  await clickElement(page, baseElements.searchButton);
-};
-
-export const verifyUserIsLoggedIn = async (page: Page): Promise<void> => {
-  await isElementVisible(page, baseElements.headerAccount, true);
-  await isElementVisible(page, baseElements.headerLogout, true);
-};
-
-export const verifyUserIsLoggedOut = async (page: Page): Promise<void> => {
-  await isElementVisible(page, baseElements.headerRegister, true);
-  await isElementVisible(page, baseElements.headerLogin, true);
+  const navBar: Locator = await getLocator(page, baseElements.navBar);
+  await navBar.waitFor({ state: "visible" });
 };

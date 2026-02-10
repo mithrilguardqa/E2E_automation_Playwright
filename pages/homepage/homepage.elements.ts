@@ -1,28 +1,14 @@
-export const elements = Object.freeze({
-  // Hero slider / banners
-  nopBanner: `.nop-jcarousel`,
-
-  // Category cards on homepage
-  categoryCards: `.home-page-category-grid .item-box`,
-  categoryElectronics: `a[href="/electronics"]`,
-  categoryApparel: `a[href="/apparel"]`,
-  categoryDigitalDownloads: `a[href="/digital-downloads"]`,
-
-  // Featured products section
-  featuredProductsTitle: `.product-grid .title strong`,
-  featuredProductItem: `.product-grid .item-box`,
-  featuredProductName: `.product-grid .item-box .product-title a`,
-  featuredProductPrice: `.product-grid .item-box .actual-price`,
-  featuredAddToCartButton: `.product-grid .item-box .product-box-add-to-cart-button`,
-
-  // News section
-  newsSection: `.news-list-homepage`,
-  newsItem: `.news-list-homepage .news-item`,
-  newsTitle: `.news-list-homepage .news-title a`,
-
-  // Community poll
-  communityPoll: `.poll`,
-
-  // Welcome topic
-  welcomeTopic: `.topic-html-content`,
+export const homepageElements = Object.freeze({
+  homeButtonNav: `//*[@href='/']/text()[normalize-space(.)='Home']`,
+  productsButtonNav: `//*[@href='/products']/text()[normalize-space(.)='Products']`,
+  cartButtonNav: `//*[@href="/view_cart"]/text()[normalize-space(.)='Cart']`,
+  signupLoginButtonNav: `//*[@href="/login"]/text()[normalize-space(.)='Signup / Login']`,
+  logoutButtonNav: `//*[@href='/logout']/text()[normalize-space(.)='Logout']`,
+  deleteAccountButtonNav: `//*[@href="/delete_account"]/text()[normalize-space(.)='Delete Account']`,
+  testCasesButtonNav: `//*[@href="/test_cases"]/text()[normalize-space(.)='Test Cases']`,
+  apiTestingButtonNav: `//*[@href="/api_test"]/text()[normalize-space(.)='API Testing']`,
+  contactUsButtonNav: `//*[@href="/contact_us"]/text()[normalize-space(.)='Contact us']`,
+  fullLoggedInTitle: `//*[@class='fa fa-user']/ancestor::a`,
+  loggedInAsPartialTitle: `//text()[normalize-space(.)='Logged in as']`,
+  loggedInAsUsername: `//text()[normalize-space(.)='Logged in as']//following-sibling::*`,
 });

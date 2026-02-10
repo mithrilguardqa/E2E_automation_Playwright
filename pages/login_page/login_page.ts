@@ -1,49 +1,127 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import {
   clickElement,
   fillFieldInput,
   isElementVisible,
   checkElementText,
+  getLocator,
+  checkElementValue,
+  isElementEnabled,
 } from "../base_page/base_page.js";
-import { elements } from "./login.elements.js";
+import { elements } from "./elements.js";
 
-// ---- Login functions ----
-
+// Login form
 export const fillLoginEmail = async (page: Page, email: string): Promise<void> => {
-  await fillFieldInput(page, elements.loginEmailField, email, "value");
+  await fillFieldInput(page, elements.emailFieldLogin, email, "value");
 };
 
 export const fillLoginPassword = async (page: Page, password: string): Promise<void> => {
-  await fillFieldInput(page, elements.loginPasswordField, password, "value");
+  await fillFieldInput(page, elements.passwordFieldLogin, password, "value");
 };
 
-export const clickLoginButton = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.loginButton);
+export const clickLoginSubmit = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.submitButton, false);
 };
 
-export const login = async (page: Page, email: string, password: string): Promise<void> => {
-  await fillLoginEmail(page, email);
-  await fillLoginPassword(page, password);
-  await clickLoginButton(page);
+// New user signup form first page
+export const fillSignupName = async (page: Page, name: string): Promise<void> => {
+  await fillFieldInput(page, elements.nameField, name, "value");
 };
 
-// ---- Navigation to Register ----
-
-export const clickRegisterButton = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.registerButton);
+export const fillSignupEmail = async (page: Page, email: string): Promise<void> => {
+  await fillFieldInput(page, elements.emailFieldSignup, email, "value");
 };
 
-// ---- Verify functions ----
-
-export const verifyLoginPage = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.returningCustomerTitle, true);
-  await isElementVisible(page, elements.newCustomerTitle, true);
+export const clickSignupSubmit = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.signupButton, false);
 };
 
-export const verifyLoginErrorMessage = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.loginErrorMessage, true);
+// Sign up second page
+export const chooseGender = async (page: Page, gender: "mr" | "mrs"): Promise<void> => {
+  if (gender === "mr") {
+    await clickElement(page, elements.mrRadioButton, false);
+  } else {
+    await clickElement(page, elements.mrsRadioButton, false);
+  }
 };
 
-export const verifyLoginErrorText = async (page: Page, text: string): Promise<void> => {
-  await checkElementText(page, elements.loginErrorMessage, text);
+export const fillName = async (page: Page, name: string): Promise<void> => {
+  await fillFieldInput(page, elements.nameFieldSecondPage, name, "value");
+};
+
+export const checkEmailIsPrefilled = async (page: Page, email: string): Promise<void> => {
+  await checkElementValue(page, elements.emailFieldSecondPage, email);
+};
+
+export const checkEmailIsDisabled = async (page: Page): Promise<void> => {
+  await isElementEnabled(page, elements.emailFieldSecondPage, false);
+};
+
+export const fillPassword = async (page: Page, password: string): Promise<void> => {
+  await fillFieldInput(page, elements.passwordFieldSecondPage, password, "value");
+};
+
+export const chooseDayOfBirth = async (page: Page, day: string): Promise<void> => {
+  const dayDropdown: Locator = await getLocator(page, elements.dayDropdown);
+  await dayDropdown.selectOption(day);
+};
+
+export const chooseMonthOfBirth = async (page: Page, month: string): Promise<void> => {
+  const monthDropdown: Locator = await getLocator(page, elements.monthDropdown);
+  await monthDropdown.selectOption(month);
+};
+
+export const chooseYearOfBirth = async (page: Page, year: string): Promise<void> => {
+  const yearDropdown: Locator = await getLocator(page, elements.yearDropdown);
+  await yearDropdown.selectOption(year);
+};
+
+export const signUpForNewsletter = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.newsletterCheckbox, false);
+};
+
+export const signUpForSpecialOffers = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.specialOffersCheckbox, false);
+};
+
+export const fillFirstName = async (page: Page, firstName: string): Promise<void> => {
+  await fillFieldInput(page, elements.firstNameField, firstName, "value");
+};
+
+export const fillLastName = async (page: Page, lastName: string): Promise<void> => {
+  await fillFieldInput(page, elements.lastNameField, lastName, "value");
+};
+
+export const fillCompany = async (page: Page, company: string): Promise<void> => {
+  await fillFieldInput(page, elements.companyField, company, "value");
+};
+
+export const fillAddress1 = async (page: Page, address1: string): Promise<void> => {
+  await fillFieldInput(page, elements.address1Field, address1, "value");
+};
+
+export const fillAddress2 = async (page: Page, address2: string): Promise<void> => {
+  await fillFieldInput(page, elements.address2Field, address2, "value");
+};
+
+export const chooseCountry = async (page: Page, country: string): Promise<void> => {
+  const countryDropdown: Locator = await getLocator(page, elements.countryDropdown);
+  await countryDropdown.selectOption(country);
+};
+
+export const chooseState = async (page: Page, state: string): Promise<void> => {
+  const stateDropdown: Locator = await getLocator(page, elements.stateDropdown);
+  await stateDropdown.selectOption(state);
+};
+
+export const fillCity = async (page: Page, city: string): Promise<void> => {
+  await fillFieldInput(page, elements.cityField, city, "value");
+};
+
+export const fillZipcode = async (page: Page, zipcode: string): Promise<void> => {
+  await fillFieldInput(page, elements.zipcodeField, zipcode, "value");
+};
+
+export const fillMobileNumber = async (page: Page, mobileNumber: string): Promise<void> => {
+  await fillFieldInput(page, elements.mobileNumberField, mobileNumber, "value");
 };
