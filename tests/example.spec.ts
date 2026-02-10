@@ -8,11 +8,8 @@ test.describe("Homepage tests", () => {
   });
 
   test("Verify homepage is visible", async ({ page }) => {
-    await Homepage.verifyHomepageIsVisible(page);
+    await Homepage.verifyUserIsLoggedIn(page);
   });
 
-  // test("Verify login is successful", async ({ page }) => {
-  //   const loggedInAsUsername = await Homepage.verifyLoginIsSuccessful(page);
-  //   console.log(loggedInAsUsername);
-  // });
+
 });
