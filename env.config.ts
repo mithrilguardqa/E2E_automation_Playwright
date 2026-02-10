@@ -8,11 +8,11 @@ interface TestConfig extends PlaywrightTestConfig {
 }
 
 const devConfig: TestConfig = {
-  baseUrl: "https://demo.nopcommerce.com",
+  baseUrl: "https://automationexercise.com/",
 };
 
 const prodConfig: TestConfig = {
-  baseUrl: "https://prod.nopcommerce.com",
+  baseUrl: "https://prod.automationexercise.com/",
 };
 
 // get the environment type from command line. If none, set it to default
