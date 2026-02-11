@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@pageObjects": ["page_objects"],
-      "@pageObjects/*": ["page_objects/*"],
+      "@pages": ["pages"],
+      "@pages/*": ["pages/*"],
+      "@data_providers/*": ["data_providers/*"],
       "@env": ["env.config.ts"]
     },
     "target": "ES2022",

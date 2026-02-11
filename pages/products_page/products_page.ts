@@ -5,7 +5,6 @@ import {
   isElementVisible,
   getLocatorCount,
   getAllMatchingElementsText,
-  checkElementContainsText,
 } from "../base_page/base_page.js";
 import { elements } from "./products.elements.js";
 

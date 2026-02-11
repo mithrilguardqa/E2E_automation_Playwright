@@ -14,6 +14,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
+    storageState: ".auth/login.json",
     baseURL: config.baseUrl,
     trace: "on-first-retry",
   },
