@@ -1,5 +1,4 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { baseElements } from "./base.elements.js";
 import config from "../../env.config.js";
 
 export const randomString = (

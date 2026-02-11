@@ -4,7 +4,7 @@
     "paths": {
       "@pages": ["pages"],
       "@pages/*": ["pages/*"],
-      "@dataproviders/*": ["dataproviders/*"],
+      "@data_providers/*": ["data_providers/*"],
       "@env": ["env.config.ts"]
     },
     "target": "ES2022",
