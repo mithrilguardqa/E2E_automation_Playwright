@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import config from "../../env.config.js";
+import { baseElements } from "./base.elements.js";
 
 export const randomString = (
   length?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13,
@@ -151,4 +152,10 @@ export const getArrayOfObjectsPropertyValues = (array: any[], key: string): stri
 // Navigation helpers
 export const navigateToHomepage = async (page: Page): Promise<void> => {
   await page.goto(config.baseUrl);
+};
+
+export const acceptCookies = async (page: Page): Promise<void> => {
+  if (await page.locator(baseElements.consentBanner).isVisible()) {
+    await page.locator(baseElements.consentBanner).click();
+  }
 };

@@ -5,6 +5,7 @@ import {
   getLocator,
   checkElementValue,
   isElementEnabled,
+  isElementVisible,
 } from "../base_page/base_page.js";
 import { elements } from "./elements.js";
 
@@ -26,6 +27,10 @@ export const clickLoginSubmit = async (page: Page): Promise<void> => {
 };
 
 // New user signup form first page
+export const verifyUserIsOnFirstPageOfRegistrationForm = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.signupFormFirstPage, true);
+};
+
 export const fillSignupName = async (page: Page, name: string): Promise<void> => {
   await fillFieldInput(page, elements.nameField, name, "value");
 };
@@ -34,17 +39,29 @@ export const fillSignupEmail = async (page: Page, email: string): Promise<void> 
   await fillFieldInput(page, elements.emailFieldSignup, email, "value");
 };
 
+export const verifyErrorExistingEmail = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.errorExistingEmail, true);
+};
+
 export const clickSignupSubmit = async (page: Page): Promise<void> => {
   await clickElement(page, elements.signupButton, false);
 };
 
 // Sign up second page
+export const verifyUserIsOnSecondPageOfRegistrationForm = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.signupFormSecondPage, true);
+};
+
 export const chooseGender = async (page: Page, gender: "mr" | "mrs"): Promise<void> => {
   if (gender === "mr") {
     await clickElement(page, elements.mrRadioButton, false);
   } else {
     await clickElement(page, elements.mrsRadioButton, false);
   }
+};
+
+export const checkFirstNameIsPrefilled = async (page: Page, firstName: string): Promise<void> => {
+  await checkElementValue(page, elements.nameFieldSecondPage, firstName);
 };
 
 export const fillName = async (page: Page, name: string): Promise<void> => {
@@ -111,9 +128,8 @@ export const chooseCountry = async (page: Page, country: string): Promise<void> 
   await countryDropdown.selectOption(country);
 };
 
-export const chooseState = async (page: Page, state: string): Promise<void> => {
-  const stateDropdown: Locator = await getLocator(page, elements.stateDropdown);
-  await stateDropdown.selectOption(state);
+export const fillState = async (page: Page, state: string): Promise<void> => {
+  await fillFieldInput(page, elements.stateDropdown, state, "value");
 };
 
 export const fillCity = async (page: Page, city: string): Promise<void> => {
@@ -126,4 +142,27 @@ export const fillZipcode = async (page: Page, zipcode: string): Promise<void> =>
 
 export const fillMobileNumber = async (page: Page, mobileNumber: string): Promise<void> => {
   await fillFieldInput(page, elements.mobileNumberField, mobileNumber, "value");
+};
+
+export const clickCreateAccountButton = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.createAccountButton, false);
+};
+
+export const verifyUserIsOnSuccessfullyCreatedOrDeletedAccount = async (
+  page: Page,
+  createOrDelete: "create" | "delete",
+): Promise<void> => {
+  if (createOrDelete === "create") {
+    await isElementVisible(page, elements.createAccountSuccessMessage, true);
+  } else {
+    await isElementVisible(page, elements.deleteAccountSuccessMessage, true);
+  }
+};
+
+export const clickContinueButton = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.continueButton, false);
+};
+
+export const verifyUserIsOnLoginPage = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.signupFormFirstPage, true);
 };
