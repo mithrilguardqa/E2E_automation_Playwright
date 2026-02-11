@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
-import config from "../../env.config.js";
 import { baseElements } from "./base.elements.js";
+import config from "../../env.config.js";
 
 export const randomString = (
   length?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13,

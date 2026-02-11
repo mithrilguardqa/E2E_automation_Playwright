@@ -1,9 +1,5 @@
 import { Page } from "@playwright/test";
-import {
-  clickElement,
-  isElementVisible,
-
-} from "../base_page/base_page.js";
+import { clickElement, isElementVisible } from "../base_page/base_page.js";
 import { elements } from "./product_details.elements.js";
 
 // Verify functions
@@ -19,7 +15,7 @@ export const verifyProductName = async (page: Page, name: string): Promise<void>
 
 export const verifyProductAvailability = async (
   page: Page,
-  availability: string
+  availability: string,
 ): Promise<void> => {
   await checkElementContainsText(page, elements.productAvailability, availability);
 };

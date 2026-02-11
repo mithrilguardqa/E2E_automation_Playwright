@@ -25,22 +25,29 @@
 
 ### 1. Register User (Positive)
 
-- **Scope:** Verify that a new user can sign up successfully and be logged in.
-- **Prerequisites:** User is on the home page, not logged in (new email for registration is available).
+- **Scope:** Verify that a new user can sign up successfully, be logged in, and then clean up the account.
+- **Prerequisites:** User is on the home page, not logged in. A unique email address is generated for registration. An existing user account is available for the negative-path check.
 
 **Steps:**
 
 1. Click on the **Signup / Login** link from the home page.
-2. Under *New User Signup*, enter a name and a unique email address, then click **Signup**.
-3. Fill out all required fields on the *Enter Account Information* form (title, password, date of birth, name, etc.), select the newsletter and offers checkboxes if present, and click **Create Account**.
-4. Verify that an account creation confirmation (e.g. *"Account Created!"*) is displayed.
-5. Click **Continue**, and confirm the user is logged in (e.g. the header shows *"Logged in as \[username\]"*).
+2. Verify the user lands on the first page of the registration form.
+3. Attempt to sign up with an **already existing** email — verify an error message is shown.
+4. Enter a **new unique email** and click **Signup**.
+5. Verify the user lands on the second page of the registration form (*Enter Account Information*).
+6. Fill out all required fields: choose gender (*Mr*), verify the first name and email are pre-filled and email is disabled, enter a password, select date of birth, tick the newsletter and special-offers checkboxes, fill in first name, last name, company, address 1, address 2, country, state, city, zip code, and mobile number.
+7. Click **Create Account**.
+8. Verify the browser navigates to the account-created page and a success message is displayed.
+9. Click **Continue** and confirm the user is logged in (header shows *"Logged in as \[username\]"*).
+10. Delete the newly created account via the **Delete Account** option.
+11. Verify the browser navigates to the account-deleted page and a success message is displayed.
+12. Click **Continue** and confirm the user is logged out.
 
 ---
 
 ### 2. Login User (Positive)
 
-- **Scope:** Verify that an existing user can log in with valid credentials.
+- **Scope:** Verify that an existing user can log in with valid credentials and log out afterwards.
 - **Prerequisites:** A user account exists (e.g. from a previous registration). User is on the home page and logged out.
 
 **Steps:**
@@ -49,7 +56,9 @@
 2. Under *Login to your account*, enter the correct email address and password for the existing account.
 3. Click the **Login** button.
 4. Verify that the login is successful by confirming the presence of *"Logged in as \[username\]"* in the header.
-5. *(Optional)* Log out to reset state for other tests by clicking **Logout**, and ensure the login page is displayed again.
+5. Click **Logout** to end the session.
+6. Verify the user is logged out.
+7. Verify the user is redirected back to the login page.
 
 ---
 
