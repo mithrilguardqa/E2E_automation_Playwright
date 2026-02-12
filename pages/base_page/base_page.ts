@@ -150,8 +150,23 @@ export const getArrayOfObjectsPropertyValues = (array: any[], key: string): stri
 };
 
 // Navigation helpers
-export const navigateToHomepage = async (page: Page): Promise<void> => {
-  await page.goto(config.baseUrl);
+export const navigateToPage = async (
+  page: Page,
+  pageName: "homepage" | "products" | "cart",
+): Promise<void> => {
+  switch (pageName) {
+    case "homepage":
+      await page.goto(config.baseUrl);
+      break;
+    case "products":
+      await clickElement(page, baseElements.productsButtonNavBar, false);
+      break;
+    case "cart":
+      await clickElement(page, baseElements.cartButtonNavBar, false);
+      break;
+    default:
+      throw new Error(`Invalid page name: ${pageName}`);
+  }
 };
 
 export const acceptCookies = async (page: Page): Promise<void> => {

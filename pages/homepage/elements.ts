@@ -1,7 +1,7 @@
 export const elements = Object.freeze({
   homepageLogo: `//img[@alt='Website for automation practice']`,
   homeButtonNavBar: `//*[@href='/'][normalize-space(.)='Home']`,
-  productsButtonNavBar: `//*[@href='/products'][normalize-space(.)='Products']`,
+  productsButtonNavBar: `//*[@href='/products' and contains(text(),'Products')]`,
   cartButtonNavBar: `//*[@href="/view_cart"][normalize-space(.)='Cart']`,
   signupLoginButtonNavBar: `//*[@href="/login"][normalize-space(.)='Signup / Login']`,
   logoutButtonNavBar: `//*[@href='/logout'][normalize-space(.)='Logout']`,
