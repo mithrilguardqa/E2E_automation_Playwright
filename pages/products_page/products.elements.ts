@@ -22,4 +22,6 @@ export const elements = Object.freeze({
   //Product details page elements
   productsPageTitle: `//h2[@class='title text-center']`,
   productsCardsContainers: `//*[@class='features_items']//*[@class='single-products']`,
+  productsCardNames: `//*[@class='single-products']//div[@class='productinfo text-center']//p`,
+  productsCardPrices: `//*[@class='single-products']//div[@class='productinfo text-center']//h2`,
 });

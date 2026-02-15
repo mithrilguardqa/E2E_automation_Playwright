@@ -2,12 +2,15 @@ import { expect, Page } from "@playwright/test";
 import {
   checkElementText,
   clickElement,
+  fillFieldInput,
+  getAllMatchingElementsText,
   getLocatorCount,
   isElementVisible,
 } from "../base_page/base_page.js";
 import { elements } from "./products.elements.js";
-import { AllowedCategory, ProductCategory, products, UserType } from "@data_providers/products.js";
+import { AllowedCategory, ProductCategory, UserType } from "@data_providers/products.js";
 
+// Navigate through products pages
 export const navigateThroughProductsPages = async <U extends UserType>(
   page: Page,
   userType: U,
@@ -42,6 +45,13 @@ export const navigateThroughProductsPages = async <U extends UserType>(
   await clickElement(page, categoryLocators[userType][category], false);
 };
 
+// Click functions
+export const clickViewProductButton = async (page: Page, productName: string): Promise<void> => {
+  const viewProductSelector: string = `//p[contains(text(),'${productName}')]/ancestor::div[@class='single-products']//following-sibling::div[@class='choose']//*[text()='View Product']`;
+
+  await clickElement(page, viewProductSelector, false);
+};
+
 // Verify functions
 export const verifyUserIsOnCorrectProductsPage = async (
   page: Page,
@@ -66,10 +76,25 @@ export const verifyProductsCount = async (page: Page, expectedCount: number): Pr
 };
 
 export const verifyBreadCrumbNav = async (page: Page, breadcrumbText: string): Promise<void> => {
-  // const breadcrumbTextString: string = await page.innerText(elements.breadcrumb);
-
   await isElementVisible(page, elements.breadcrumb, true);
   await checkElementText(page, elements.breadcrumb, breadcrumbText);
+};
 
-  // return breadcrumbTextString;
+export const verifyProductNames = async (page: Page, productName: string): Promise<void> => {
+  await page.waitForSelector(elements.productsCardNames, { state: "visible" });
+
+  const actualProductNames: string[] = await getAllMatchingElementsText(
+    page,
+    elements.productsCardNames,
+  );
+
+  for (const name of actualProductNames) {
+    expect(name.toLowerCase()).toContain(productName.toLowerCase());
+  }
+};
+
+// Search functions
+export const searchProduct = async (page: Page, searchQuery: string): Promise<void> => {
+  await fillFieldInput(page, elements.searchInput, searchQuery, "value");
+  await clickElement(page, elements.submitSearchButton, false);
 };

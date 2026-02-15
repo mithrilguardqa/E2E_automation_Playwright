@@ -54,6 +54,12 @@ export interface WholeSectionProducts {
   };
 }
 
+export const getAllProductsByCategory = (category: ProductCategory): Product[] => {
+  return Object.values(products).flatMap((userCategories) =>
+    category in userCategories ? (userCategories as Record<string, Product[]>)[category] : [],
+  );
+};
+
 export const products: WholeSectionProducts = {
   [UserType.Men]: {
     [ProductCategory.Tshirts]: [
