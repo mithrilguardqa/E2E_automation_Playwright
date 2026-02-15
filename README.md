@@ -73,9 +73,16 @@
 
 1. Click on the **Products** menu option in the navigation.
 2. Verify that the *All Products* page is displayed, showing a list of products.
-3. Click on the **View Product** button for the first product in the list.
-4. Verify that the product detail page is displayed for the selected product.
-5. Confirm the product details are visible, including: product name, category, price, availability, condition, and brand.
+3. Navigate to 'Women > Dress' section
+4. Verify the breadcrumb navigation
+5. Verify the number of items matches the expected result
+6. Verify the item names and prices matches the expected results
+7. Navigate to product details page and check additional information matches the expected results
+8. Navigate to 'Men > Tshirt' section
+9. Verify the breadcrumb navigation
+10. Verify the number of items matches the expected one
+11. Enter product details page
+12. Verify the additional information matches the expected result as well 
 
 ---
 

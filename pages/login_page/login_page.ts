@@ -26,6 +26,13 @@ export const clickLoginSubmit = async (page: Page): Promise<void> => {
   await clickElement(page, elements.submitButton, false);
 };
 
+export const loginUser = async (page: Page, email: string, password: string): Promise<void> => {
+  await clickOnSignupLoginButtonNavBar(page);
+  await fillLoginEmail(page, email);
+  await fillLoginPassword(page, password);
+  await clickLoginSubmit(page);
+};
+
 // New user signup form first page
 export const verifyUserIsOnFirstPageOfRegistrationForm = async (page: Page): Promise<void> => {
   await isElementVisible(page, elements.signupFormFirstPage, true);

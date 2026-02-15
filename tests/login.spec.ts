@@ -13,6 +13,31 @@ test.describe("Login and registration tests", () => {
     await acceptCookies(page);
   });
 
+  test("Verify user can login successfully", async ({ page }) => {
+    await test.step("Login to the website", async () => {
+      await LoginPage.clickOnSignupLoginButtonNavBar(page);
+      await LoginPage.fillLoginEmail(page, defaultUserDetails.email);
+      await LoginPage.fillLoginPassword(page, config.password);
+      await LoginPage.clickLoginSubmit(page);
+    });
+
+    await test.step("Verify user is logged in", async () => {
+      await Homepage.verifyUserIsLogged(page, defaultUserDetails.name);
+    });
+
+    await test.step("Logout from the website", async () => {
+      await Homepage.logout(page);
+    });
+
+    await test.step("Verify user is logged out", async () => {
+      await Homepage.verifyUserIsLoggedOut(page);
+    });
+
+    await test.step("Verify user is on login page", async () => {
+      await LoginPage.verifyUserIsOnLoginPage(page);
+    });
+  });
+
   test("Verify user can register successfully", async ({ page }) => {
     const userData = generateUserData();
     const password = config.password;
@@ -99,31 +124,6 @@ test.describe("Login and registration tests", () => {
 
     await test.step("Verify user is logged out", async () => {
       await Homepage.verifyUserIsLoggedOut(page);
-    });
-  });
-
-  test("Verify user can login successfully", async ({ page }) => {
-    await test.step("Login to the website", async () => {
-      await LoginPage.clickOnSignupLoginButtonNavBar(page);
-      await LoginPage.fillLoginEmail(page, defaultUserDetails.email);
-      await LoginPage.fillLoginPassword(page, config.password);
-      await LoginPage.clickLoginSubmit(page);
-    });
-
-    await test.step("Verify user is logged in", async () => {
-      await Homepage.verifyUserIsLogged(page, defaultUserDetails.name);
-    });
-
-    await test.step("Logout from the website", async () => {
-      await Homepage.logout(page);
-    });
-
-    await test.step("Verify user is logged out", async () => {
-      await Homepage.verifyUserIsLoggedOut(page);
-    });
-
-    await test.step("Verify user is on login page", async () => {
-      await LoginPage.verifyUserIsOnLoginPage(page);
     });
   });
 });

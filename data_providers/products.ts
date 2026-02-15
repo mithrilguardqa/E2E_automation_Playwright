@@ -24,6 +24,14 @@ export enum ProductCategory {
   TopsAndShirts = "Tops & Shirts",
 }
 
+export const allowedCategories = {
+  [UserType.Men]: [ProductCategory.Tshirts, ProductCategory.Jeans] as const,
+  [UserType.Women]: [ProductCategory.Tops, ProductCategory.Dress, ProductCategory.Saree] as const,
+  [UserType.Kids]: [ProductCategory.TopsAndShirts, ProductCategory.Dress] as const,
+} as const;
+
+export type AllowedCategory<U extends UserType> = (typeof allowedCategories)[U][number];
+
 export interface Product {
   name: string;
   price: number;
