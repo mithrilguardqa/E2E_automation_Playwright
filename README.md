@@ -6,18 +6,18 @@
 
 ## Table of Contents
 
-| #  | Test Case                                      | Suite                    |
-|---:|------------------------------------------------|--------------------------|
-| 1  | [Register User (Positive)](#1-register-user-positive) | Login & Registration |
-| 2  | [Login User (Positive)](#2-login-user-positive)       | Login & Registration |
-| 3  | [View All Products & Detail](#3-view-all-products--product-detail-positive) | Product Browsing |
-| 4  | [Search Products](#4-search-products-positive)        | Product Browsing     |
-| 5  | [Add Products to Cart](#5-add-products-to-cart-positive) | Cart & Checkout    |
-| 6  | [Update Product Quantity](#6-update-product-quantity-in-cart-positive) | Cart & Checkout |
-| 7  | [Remove Item from Cart](#7-remove-item-from-cart-positive) | Cart & Checkout  |
-| 8  | [Checkout Order](#8-checkout-order-logged-in-user-positive) | Cart & Checkout |
-| 9  | [Submit Product Review](#9-submit-product-review-positive) | Reviews & Feedback |
-| 10 | [Contact Us Form](#10-contact-us-form-submission-positive) | Reviews & Feedback |
+|   # | Test Case                                                                   | Suite                |
+| --: | --------------------------------------------------------------------------- | -------------------- |
+|   1 | [Register User (Positive)](#1-register-user-positive)                       | Login & Registration |
+|   2 | [Login User (Positive)](#2-login-user-positive)                             | Login & Registration |
+|   3 | [View All Products & Detail](#3-view-all-products--product-detail-positive) | Product Browsing     |
+|   4 | [Search Products](#4-search-products-positive)                              | Product Browsing     |
+|   5 | [Add Products to Cart](#5-add-products-to-cart-positive)                    | Cart & Checkout      |
+|   6 | [Update Product Quantity](#6-update-product-quantity-in-cart-positive)      | Cart & Checkout      |
+|   7 | [Remove Item from Cart](#7-remove-item-from-cart-positive)                  | Cart & Checkout      |
+|   8 | [Checkout Order](#8-checkout-order-logged-in-user-positive)                 | Cart & Checkout      |
+|   9 | [Submit Product Review](#9-submit-product-review-positive)                  | Reviews & Feedback   |
+|  10 | [Contact Us Form](#10-contact-us-form-submission-positive)                  | Reviews & Feedback   |
 
 ---
 
@@ -34,11 +34,11 @@
 2. Verify the user lands on the first page of the registration form.
 3. Attempt to sign up with an **already existing** email — verify an error message is shown.
 4. Enter a **new unique email** and click **Signup**.
-5. Verify the user lands on the second page of the registration form (*Enter Account Information*).
-6. Fill out all required fields: choose gender (*Mr*), verify the first name and email are pre-filled and email is disabled, enter a password, select date of birth, tick the newsletter and special-offers checkboxes, fill in first name, last name, company, address 1, address 2, country, state, city, zip code, and mobile number.
+5. Verify the user lands on the second page of the registration form (_Enter Account Information_).
+6. Fill out all required fields: choose gender (_Mr_), verify the first name and email are pre-filled and email is disabled, enter a password, select date of birth, tick the newsletter and special-offers checkboxes, fill in first name, last name, company, address 1, address 2, country, state, city, zip code, and mobile number.
 7. Click **Create Account**.
 8. Verify the browser navigates to the account-created page and a success message is displayed.
-9. Click **Continue** and confirm the user is logged in (header shows *"Logged in as \[username\]"*).
+9. Click **Continue** and confirm the user is logged in (header shows _"Logged in as \[username\]"_).
 10. Delete the newly created account via the **Delete Account** option.
 11. Verify the browser navigates to the account-deleted page and a success message is displayed.
 12. Click **Continue** and confirm the user is logged out.
@@ -53,9 +53,9 @@
 **Steps:**
 
 1. Click on the **Signup / Login** link on the home page.
-2. Under *Login to your account*, enter the correct email address and password for the existing account.
+2. Under _Login to your account_, enter the correct email address and password for the existing account.
 3. Click the **Login** button.
-4. Verify that the login is successful by confirming the presence of *"Logged in as \[username\]"* in the header.
+4. Verify that the login is successful by confirming the presence of _"Logged in as \[username\]"_ in the header.
 5. Click **Logout** to end the session.
 6. Verify the user is logged out.
 7. Verify the user is redirected back to the login page.
@@ -72,24 +72,29 @@
 **Steps:**
 
 1. Click on the **Products** menu option in the navigation.
-2. Verify that the *All Products* page is displayed, showing a list of products.
-3. Click on the **View Product** button for the first product in the list.
-4. Verify that the product detail page is displayed for the selected product.
-5. Confirm the product details are visible, including: product name, category, price, availability, condition, and brand.
+2. Verify that the _All Products_ page is displayed, showing a list of products.
+3. Navigate to 'Women > Dress' section
+4. Verify the breadcrumb navigation
+5. Verify the number of items matches the expected result
+6. Verify the item names and prices matches the expected results
+7. Navigate to product details page and check additional information matches the expected results
 
 ---
 
 ### 4. Search Products (Positive)
 
-- **Scope:** Verify that using the search feature returns relevant products.
-- **Prerequisites:** User is on the *All Products* page (from the navigation menu).
+- **Scope:** Verify that using the search feature returns relevant products and that product details are correct.
+- **Prerequisites:** User is on the _All Products_ page (from the navigation menu).
 
 **Steps:**
 
-1. Locate the **Search** input field on the products page.
-2. Enter a valid product name (e.g. *"Dress"*) into the search bar and click **Search**.
-3. Verify that the search results page appears with the header *"Searched Products"*.
-4. Confirm that all products displayed in the results relate to the search query (the query term appears in each product's name or description).
+1. Navigate to the **Products** page and verify the user is on the correct page.
+2. Enter a search query (e.g. _"jeans"_) into the search bar and click **Search**.
+3. Verify the URL updates to include the search query (e.g. `/products?search=jeans`).
+4. Verify the correct number of products are displayed matching the expected count from the data provider.
+5. Confirm that all product names displayed in the results contain the search query (case-insensitive).
+6. Click on the **View Product** button for a random product from the search results.
+7. Verify the product details page displays the correct name, category, price, and brand.
 
 ---
 
@@ -98,7 +103,7 @@
 ### 5. Add Products to Cart (Positive)
 
 - **Scope:** Verify that a user can add multiple products to the shopping cart and view them.
-- **Prerequisites:** User is on the product listing page (e.g. *All Products* or home page).
+- **Prerequisites:** User is on the product listing page (e.g. _All Products_ or home page).
 
 **Steps:**
 
@@ -129,7 +134,7 @@
 ### 7. Remove Item from Cart (Positive)
 
 - **Scope:** Verify that the user can remove a product from the cart successfully.
-- **Prerequisites:** At least one product is already added to the cart. User is on the *View Cart* page.
+- **Prerequisites:** At least one product is already added to the cart. User is on the _View Cart_ page.
 
 **Steps:**
 
@@ -147,13 +152,13 @@
 **Steps:**
 
 1. Click the **Cart** button to go to the cart page, then click **Proceed To Checkout**.
-2. On the checkout page, verify that the *Address Details* and *Review Your Order* sections are visible and showing the correct information (shipping/billing address and ordered items with prices).
-3. *(Optional)* Enter a comment or special instructions in the order comment text area.
+2. On the checkout page, verify that the _Address Details_ and _Review Your Order_ sections are visible and showing the correct information (shipping/billing address and ordered items with prices).
+3. _(Optional)_ Enter a comment or special instructions in the order comment text area.
 4. Click the **Place Order** button.
 5. Enter the payment information (Name on Card, Card Number, CVC, expiration date) in the provided form.
 6. Submit the payment by clicking **Pay and Confirm Order**.
-7. Verify that a confirmation message is displayed (e.g. *"Your order has been placed successfully!"*) indicating the order completion.
-8. *(Optional)* Navigate to **Delete Account** if account cleanup is needed, verify the account deletion message, then continue to home page.
+7. Verify that a confirmation message is displayed (e.g. _"Your order has been placed successfully!"_) indicating the order completion.
+8. _(Optional)_ Navigate to **Delete Account** if account cleanup is needed, verify the account deletion message, then continue to home page.
 
 ---
 
@@ -169,7 +174,7 @@
 1. On the product detail page, scroll to the **Write Your Review** section.
 2. Enter a name, an email address, and text for the review into the respective fields.
 3. Click the **Submit** button to post the review.
-4. Verify that a success message is displayed (e.g. *"Thank you for your review."*), indicating the review was submitted successfully.
+4. Verify that a success message is displayed (e.g. _"Thank you for your review."_), indicating the review was submitted successfully.
 
 ---
 
@@ -181,8 +186,8 @@
 **Steps:**
 
 1. Click the **Contact us** link in the navigation menu.
-2. On the *Contact Us* page, verify that the *Get In Touch* form is visible.
-3. Fill in the contact form fields: enter a name, email address, subject, and a message. *(Optional: attach a file if the form allows file upload.)*
+2. On the _Contact Us_ page, verify that the _Get In Touch_ form is visible.
+3. Fill in the contact form fields: enter a name, email address, subject, and a message. _(Optional: attach a file if the form allows file upload.)_
 4. Click the **Submit** button to send the form. If a confirmation alert pops up, click **OK** to proceed.
-5. Verify that a success message is displayed on the page, such as *"Success! Your details have been submitted successfully."*
+5. Verify that a success message is displayed on the page, such as _"Success! Your details have been submitted successfully."_
 6. Click the **Home** button/link to return to the home page and confirm that the homepage loads correctly after submission.

@@ -174,3 +174,10 @@ export const acceptCookies = async (page: Page): Promise<void> => {
     await page.locator(baseElements.consentBanner).click();
   }
 };
+
+export const blockAds = async (page: Page): Promise<void> => {
+  await page.route(
+    /(google(ads|tagmanager|syndication)|doubleclick|adservice|googlesyndication|adsbygoogle|pagead)/,
+    (route) => route.abort(),
+  );
+};
