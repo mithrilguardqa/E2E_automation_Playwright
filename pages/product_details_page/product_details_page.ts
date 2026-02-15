@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { checkElementText } from "../base_page/base_page.js";
+import { checkElementText, clickElement } from "../base_page/base_page.js";
 import { elements } from "./product_details.elements.js";
 
 export const verifyProductDetails = async (
@@ -13,4 +13,8 @@ export const verifyProductDetails = async (
   await checkElementText(page, elements.productCategory, productCategory);
   await checkElementText(page, elements.productPrice, productPrice);
   await checkElementText(page, elements.productBrand, productBrand);
+};
+
+export const clickAddToCart = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.addToCartButton, false);
 };

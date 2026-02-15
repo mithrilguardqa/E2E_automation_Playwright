@@ -6,7 +6,12 @@ import {
   products,
   UserType,
 } from "@data_providers/products";
-import { acceptCookies, blockAds, navigateToPage } from "@pages/base_page/base_page";
+import {
+  acceptCookies,
+  blockAds,
+  navigateToPage,
+  verifyBreadCrumbNav,
+} from "@pages/base_page/base_page";
 import { ProductDetailsPage, ProductsPage } from "@pages";
 import { getRandomObjectProperty } from "helpers/helper_functions";
 
@@ -18,7 +23,6 @@ test.describe("Products browsing", () => {
   });
 
   test("Verify user can browse products", async ({ page }) => {
-    let breadcrumbText: string = "";
     let womenDressCategory: string = `Category: ${UserType.Women} > ${ProductCategory.Dress}`;
     let menTshirtCategory: string = `Category: ${UserType.Men} > ${ProductCategory.Tshirts}`;
 
@@ -53,8 +57,10 @@ test.describe("Products browsing", () => {
     });
 
     await test.step("Verify breadcrumb navigation", async () => {
-      breadcrumbText = "Products Women > Dress";
-      await ProductsPage.verifyBreadCrumbNav(page, breadcrumbText);
+      await verifyBreadCrumbNav(page, {
+        userType: UserType.Women,
+        category: ProductCategory.Dress,
+      });
     });
 
     await test.step("Verify correct number of products are displayed", async () => {

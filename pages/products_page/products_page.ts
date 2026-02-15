@@ -75,11 +75,6 @@ export const verifyProductsCount = async (page: Page, expectedCount: number): Pr
   expect(actualCount).toEqual(expectedCount);
 };
 
-export const verifyBreadCrumbNav = async (page: Page, breadcrumbText: string): Promise<void> => {
-  await isElementVisible(page, elements.breadcrumb, true);
-  await checkElementText(page, elements.breadcrumb, breadcrumbText);
-};
-
 export const verifyProductNames = async (page: Page, productName: string): Promise<void> => {
   await page.waitForSelector(elements.productsCardNames, { state: "visible" });
 
