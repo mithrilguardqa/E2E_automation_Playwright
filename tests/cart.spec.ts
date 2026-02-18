@@ -4,6 +4,8 @@ import {
   Product,
   ProductCategory,
   UserType,
+  products,
+  getRandomProduct,
 } from "@data_providers/products";
 import { ProductDetailsPage, ProductsPage, CartPage } from "@pages";
 import {
@@ -12,19 +14,26 @@ import {
   navigateToPage,
   verifyBreadCrumbNav,
 } from "@pages/base_page/base_page";
-import { verifyAddToCartToast, viewCartButtonInToast } from "@pages/toast_page/toast_page";
-import { getRandomObjectProperty } from "helpers/helper_functions";
+import {
+  clickContinueShoppingButtonInToast,
+  verifyAddToCartToast,
+  viewCartButtonInToast,
+} from "@pages/toast_page/toast_page";
+import { addProductToCart } from "@pages/homepage/homepage";
+import { defaultUserDetails } from "@data_providers/user_details";
 
+test.describe.configure({ mode: "serial" });
 test.describe("Cart and checkout tests", () => {
-  const randomJeansProduct: Product = getRandomObjectProperty(
-    getAllProductsByCategory(ProductCategory.Jeans),
-  );
+  const productsToAddToCart: Product[] = getAllProductsByCategory(ProductCategory.TopsAndShirts);
+  const { name: product1Name, price: price1 } = productsToAddToCart[0];
+  const { name: product2Name, price: price2 } = productsToAddToCart[1];
+  const product1Price = String(`Rs. ${price1}`); // Rs. 499
+  const product2Price = String(`Rs. ${price2}`);
+  const productsQuantity: string = "1";
 
-  const {
-    name: randomJeansProductName,
-    price: randomJeansProductPrice,
-    brand: randomJeansProductBrand,
-  } = randomJeansProduct;
+  const randomJeansProduct: Product = getRandomProduct(
+    products[UserType.Men][ProductCategory.Jeans],
+  );
 
   test.beforeEach(async ({ page }) => {
     await navigateToPage(page, "homepage");
@@ -61,7 +70,7 @@ test.describe("Cart and checkout tests", () => {
     });
 
     await test.step("Pick a random Jeans product", async () => {
-      await ProductsPage.clickViewProductButton(page, randomJeansProductName);
+      await ProductsPage.clickViewProductButton(page, randomJeansProduct.name);
     });
 
     await test.step("Add product to cart", async () => {
@@ -78,6 +87,120 @@ test.describe("Cart and checkout tests", () => {
 
     await test.step("Verify user is on cart page", async () => {
       await CartPage.verifyUserIsOnCartPage(page);
+    });
+  });
+
+  test("Verify user can remove products from the cart", async ({ page }) => {
+    await test.step("Verify user is in home page", async () => {
+      await navigateToPage(page, "homepage");
+    });
+
+    await test.step("Add product to cart", async () => {
+      for (const product of productsToAddToCart) {
+        await addProductToCart(page, product.name);
+        await clickContinueShoppingButtonInToast(page);
+      }
+    });
+
+    await test.step("Navigate to cart page", async () => {
+      await navigateToPage(page, "cart");
+    });
+
+    await test.step("Verify cart has the correct products", async () => {
+      await CartPage.verifyCartHasTheCorrectProducts(
+        page,
+        productsToAddToCart.map((product) => product.name),
+      );
+    });
+
+    await test.step("Remove products from cart to clear the it", async () => {
+      await CartPage.clearCart(page);
+    });
+
+    await test.step("Verify cart is empty", async () => {
+      await CartPage.checkIsCartEmpty(page);
+    });
+  });
+
+  test("Review order details in checkout page", async ({ page }) => {
+    await test.step("Navigate to cart page and ensure it's empty", async () => {
+      await navigateToPage(page, "cart");
+      await CartPage.clearCart(page);
+      await CartPage.verifyEmptyCartMessage(page);
+    });
+
+    await test.step("Navigate to products page", async () => {
+      await navigateToPage(page, "homepage");
+    });
+
+    await test.step("Add 2 products to cart", async () => {
+      await addProductToCart(page, product1Name);
+      await clickContinueShoppingButtonInToast(page);
+      await addProductToCart(page, product2Name);
+      await clickContinueShoppingButtonInToast(page);
+    });
+
+    await test.step("Navigate to cart page", async () => {
+      await navigateToPage(page, "cart");
+      await verifyBreadCrumbNav(page, { homePage: "Shopping Cart" });
+    });
+
+    await test.step("Verify cart has the correct products", async () => {
+      await CartPage.verifyCartHasTheCorrectProducts(page, [product1Name, product2Name]);
+    });
+
+    await test.step("Click on proceed to checkout button", async () => {
+      await CartPage.clickProceedToCheckoutButton(page);
+      await verifyBreadCrumbNav(page, { homePage: "Checkout" });
+    });
+
+    await test.step("Verify delivery and billing addresses are correct", async () => {
+      await CartPage.verifyDeliveryAddressDetails(
+        page,
+        defaultUserDetails.first_name,
+        defaultUserDetails.last_name,
+        defaultUserDetails.company,
+        defaultUserDetails.address1,
+        defaultUserDetails.address2,
+        defaultUserDetails.country,
+        defaultUserDetails.state,
+        defaultUserDetails.city,
+        defaultUserDetails.zipcode,
+        defaultUserDetails.phone,
+      );
+    });
+
+    await test.step("Verify billing address details are correct", async () => {
+      await CartPage.verifyBillingAddressDetails(
+        page,
+        defaultUserDetails.first_name,
+        defaultUserDetails.last_name,
+        defaultUserDetails.company,
+        defaultUserDetails.address1,
+        defaultUserDetails.address2,
+        defaultUserDetails.country,
+        defaultUserDetails.state,
+        defaultUserDetails.city,
+        defaultUserDetails.zipcode,
+        defaultUserDetails.phone,
+      );
+    });
+
+    await test.step("Verify order details are correct - name, price, quantity and total price", async () => {
+      await CartPage.verifyOrderDetails(
+        page,
+        product1Name,
+        product1Price,
+        productsQuantity,
+        product2Name,
+        product2Price,
+        productsQuantity,
+      );
+    });
+
+    await test.step("Verify order total price is correct", async () => {
+      const orderTotalPrice = price1 + price2;
+      await CartPage.verifyOrderTotalPrice(page, String(`Rs. ${orderTotalPrice}`));
     });
   });
 });

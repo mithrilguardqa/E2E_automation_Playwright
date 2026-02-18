@@ -6,18 +6,18 @@
 
 ## Table of Contents
 
-|   # | Test Case                                                                   | Suite                |
-| --: | --------------------------------------------------------------------------- | -------------------- |
-|   1 | [Register User (Positive)](#1-register-user-positive)                       | Login & Registration |
-|   2 | [Login User (Positive)](#2-login-user-positive)                             | Login & Registration |
-|   3 | [View All Products & Detail](#3-view-all-products--product-detail-positive) | Product Browsing     |
-|   4 | [Search Products](#4-search-products-positive)                              | Product Browsing     |
-|   5 | [Add Products to Cart](#5-add-products-to-cart-positive)                    | Cart & Checkout      |
-|   6 | [Update Product Quantity](#6-update-product-quantity-in-cart-positive)      | Cart & Checkout      |
-|   7 | [Remove Item from Cart](#7-remove-item-from-cart-positive)                  | Cart & Checkout      |
-|   8 | [Checkout Order](#8-checkout-order-logged-in-user-positive)                 | Cart & Checkout      |
-|   9 | [Submit Product Review](#9-submit-product-review-positive)                  | Reviews & Feedback   |
-|  10 | [Contact Us Form](#10-contact-us-form-submission-positive)                  | Reviews & Feedback   |
+|   # | Test Case                                                                        | Suite                |
+| --: | -------------------------------------------------------------------------------- | -------------------- |
+|   1 | [Register User (Positive)](#1-register-user-positive)                            | Login & Registration |
+|   2 | [Login User (Positive)](#2-login-user-positive)                                  | Login & Registration |
+|   3 | [View All Products & Detail](#3-view-all-products--product-detail-positive)      | Product Browsing     |
+|   4 | [Search Products](#4-search-products-positive)                                   | Product Browsing     |
+|   5 | [Add Products to Cart](#5-add-products-to-cart-positive)                         | Cart & Checkout      |
+|   6 | [Remove Products from Cart](#6-update-product-quantity-in-cart-positive)         | Cart & Checkout      |
+|   7 | [Review Order Details in Checkout](#7-review-order-details-in-checkout-positive)  | Cart & Checkout      |
+|   8 | [Finalize Order Payment](#8-finalize-order-payment-positive)                     | Cart & Checkout      |
+|   9 | [Submit Product Review](#9-submit-product-review-positive)                       | Reviews & Feedback   |
+|  10 | [Contact Us Form](#10-contact-us-form-submission-positive)                       | Reviews & Feedback   |
 
 ---
 
@@ -100,7 +100,7 @@
 
 ## Suite 3 — Cart & Checkout
 
-### 5. Add Products to Cart (Positive)
+### 5. Add Products to the Cart (Positive)
 
 - **Scope:** Verify that a user can add multiple products to the shopping cart and view them.
 - **Prerequisites:** User is on the product listing page (e.g. _All Products_ or home page).
@@ -116,22 +116,7 @@
 
 ---
 
-### 6. Update Product Quantity in Cart (Positive)
-
-- **Scope:** Verify that the user can update the quantity of a product and see the update in the cart.
-- **Prerequisites:** User is viewing a product detail page for an in-stock product.
-
-**Steps:**
-
-1. On the product detail page, locate the **Quantity** field and change the value (e.g. increase from `1` to `3`).
-2. Click the **Add to cart** button on the product page.
-3. Click **View Cart** in the modal to open the cart page.
-4. Verify that the product appears in the cart with the exact quantity selected (e.g. quantity shows `3`).
-5. Confirm that the cart calculates the total price correctly as `price × quantity` for that product.
-
----
-
-### 7. Remove Item from Cart (Positive)
+### 6. Remove Items from the Cart (Positive)
 
 - **Scope:** Verify that the user can remove a product from the cart successfully.
 - **Prerequisites:** At least one product is already added to the cart. User is on the _View Cart_ page.
@@ -144,21 +129,33 @@
 
 ---
 
-### 8. Checkout Order — Logged-in User (Positive)
+### 7. Review Order Details in Checkout (Positive)
 
-- **Scope:** Verify that a logged-in user can successfully place an order (checkout) from the cart.
-- **Prerequisites:** User is logged in and has at least one item in the cart ready to purchase.
+- **Scope:** Verify that a logged-in user can review order and address details on the checkout page before placing an order.
+- **Prerequisites:** User is logged in. The cart is empty at the start of the test.
 
 **Steps:**
 
-1. Click the **Cart** button to go to the cart page, then click **Proceed To Checkout**.
-2. On the checkout page, verify that the _Address Details_ and _Review Your Order_ sections are visible and showing the correct information (shipping/billing address and ordered items with prices).
-3. _(Optional)_ Enter a comment or special instructions in the order comment text area.
-4. Click the **Place Order** button.
-5. Enter the payment information (Name on Card, Card Number, CVC, expiration date) in the provided form.
-6. Submit the payment by clicking **Pay and Confirm Order**.
-7. Verify that a confirmation message is displayed (e.g. _"Your order has been placed successfully!"_) indicating the order completion.
-8. _(Optional)_ Navigate to **Delete Account** if account cleanup is needed, verify the account deletion message, then continue to home page.
+1. Navigate to the **Cart** page and ensure it is empty (clear any existing items).
+2. Navigate to the home page and add **two products** to the cart, clicking **Continue Shopping** after each.
+3. Navigate to the **Cart** page and verify the breadcrumb navigation shows _"Shopping Cart"_.
+4. Verify the cart contains the correct products.
+5. Click **Proceed To Checkout** and verify the breadcrumb navigation shows _"Checkout"_.
+6. Verify the **delivery address** details are correct (name, company, addresses, country, state, city, zip code, phone).
+7. Verify the **billing address** details are correct (same fields as delivery address).
+8. Verify the **order details** for each product — name, price, and quantity.
+9. Verify the **order total price** is the correct sum of both products' prices.
+
+---
+
+### 8. Finalize Order Payment (Positive)
+
+- **Scope:** Verify that a user can finalize an order by entering payment details, confirming, and downloading the invoice.
+- **Prerequisites:** User is logged in and has items in the cart ready for checkout.
+
+**Steps:**
+
+1.
 
 ---
 

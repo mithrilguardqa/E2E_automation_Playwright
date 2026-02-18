@@ -11,3 +11,7 @@ export const verifyAddToCartToast = async (page: Page): Promise<void> => {
 export const viewCartButtonInToast = async (page: Page): Promise<void> => {
   await clickElement(page, elements.modalViewCartButton, false);
 };
+
+export const clickContinueShoppingButtonInToast = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.modalContinueShoppingButton, false);
+};

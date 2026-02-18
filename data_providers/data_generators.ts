@@ -20,12 +20,12 @@ export const generateUserData = (): Omit<UserDetails, "id" | "title"> => {
     last_name: "guard",
     company: "mithrilguardqa",
     address1: "Sofia",
-    address2: `address2${randomString(3)}`,
+    address2: `address2`,
     country: "United States",
     state: "Arizona",
     city: "Tucson",
     zipcode: "85704",
-    phone: randomString(10),
+    phone: "1234567890",
   };
 };
 

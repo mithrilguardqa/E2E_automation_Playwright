@@ -122,3 +122,7 @@ export const products: WholeSectionProducts = {
     ],
   },
 };
+
+export const getRandomProduct = (products: Product[]): Product => {
+  return products[Math.floor(Math.random() * products.length)];
+};
