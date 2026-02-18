@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { baseElements } from "./base.elements.js";
 import config from "../../env.config.js";
+import { AllowedCategory, Brand, UserType } from "@data_providers/products.js";
 
 export const randomString = (
   length?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13,
@@ -167,6 +168,27 @@ export const navigateToPage = async (
     default:
       throw new Error(`Invalid page name: ${pageName}`);
   }
+};
+
+export const verifyBreadCrumbNav = async (
+  page: Page,
+  options:
+    | { userType: UserType; category: AllowedCategory<UserType> }
+    | { brand: Brand }
+    | { homePage: "Shopping Cart" | "Checkout" | "Payment" },
+): Promise<void> => {
+  let expectedBreadcrumbText: string;
+
+  if ("userType" in options) {
+    expectedBreadcrumbText = `Products ${options.userType} > ${options.category}`;
+  } else if ("brand" in options) {
+    expectedBreadcrumbText = `Products ${options.brand}`;
+  } else {
+    expectedBreadcrumbText = `Home ${options.homePage}`;
+  }
+
+  await isElementVisible(page, baseElements.breadcrumb, true);
+  await checkElementText(page, baseElements.breadcrumb, expectedBreadcrumbText);
 };
 
 export const acceptCookies = async (page: Page): Promise<void> => {

@@ -3,7 +3,6 @@ export const elements = Object.freeze({
   saleImage: `#sale_image`,
   searchInput: `#search_product`,
   submitSearchButton: `#submit_search`,
-  breadcrumb: `//*[@class='breadcrumbs']`,
 
   //Accordion expand buttons
   womenAccordionExpandButton: `//*[@id='accordian']//a[@href="#Women"]`,

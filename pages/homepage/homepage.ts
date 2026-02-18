@@ -22,3 +22,12 @@ export const verifyUserIsLoggedOut = async (page: Page): Promise<void> => {
 export const logout = async (page: Page): Promise<void> => {
   await clickElement(page, elements.logoutButtonNavBar, false);
 };
+
+export const addProductToCart = async (page: Page, productName: string): Promise<void> => {
+  const productHoverArea: string = `//*[@class='productinfo text-center']//p[text()='${productName}']`;
+  const productAddToCardButtonArea: string = `//*[@class='overlay-content']//p[text()='${productName}']/following-sibling::*`;
+
+  await page.hover(productHoverArea);
+  await page.waitForTimeout(300);
+  await clickElement(page, productAddToCardButtonArea, true);
+};

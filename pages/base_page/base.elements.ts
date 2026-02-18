@@ -1,4 +1,5 @@
 export const baseElements = Object.freeze({
+  breadcrumb: `.breadcrumbs`,
   navBar: `//*[@class='shop-menu pull-right']`,
   productsButtonNavBar: `//*[@href='/products' and contains(text(),'Products')]`,
   cartButtonNavBar: `//*[@href="/view_cart"][normalize-space(.)='Cart']`,
