@@ -14,7 +14,7 @@
 |   4 | [Search Products](#4-search-products-positive)                                   | Product Browsing     |
 |   5 | [Add Products to Cart](#5-add-products-to-cart-positive)                         | Cart & Checkout      |
 |   6 | [Remove Products from Cart](#6-update-product-quantity-in-cart-positive)         | Cart & Checkout      |
-|   7 | [Review Order Details in Checkout](#7-review-order-details-in-checkout-positive)  | Cart & Checkout      |
+|   7 | [Review Order Details in Checkout](#7-review-order-details-in-checkout-positive) | Cart & Checkout      |
 |   8 | [Finalize Order Payment](#8-finalize-order-payment-positive)                     | Cart & Checkout      |
 |   9 | [Submit Product Review](#9-submit-product-review-positive)                       | Reviews & Feedback   |
 |  10 | [Contact Us Form](#10-contact-us-form-submission-positive)                       | Reviews & Feedback   |
