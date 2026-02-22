@@ -24,10 +24,8 @@ export const logout = async (page: Page): Promise<void> => {
 };
 
 export const addProductToCart = async (page: Page, productName: string): Promise<void> => {
-  const productHoverArea: string = `//*[@class='productinfo text-center']//p[text()='${productName}']`;
-  const productAddToCardButtonArea: string = `//*[@class='overlay-content']//p[text()='${productName}']/following-sibling::*`;
+  const addToCartButton: string = `//*[@class='productinfo text-center']//p[text()='${productName}']/following-sibling::*[1]`;
 
-  await page.hover(productHoverArea);
-  await page.waitForTimeout(300);
-  await clickElement(page, productAddToCardButtonArea, true);
+  await page.locator(addToCartButton).scrollIntoViewIfNeeded();
+  await clickElement(page, addToCartButton, false);
 };

@@ -14,8 +14,11 @@ import {
 } from "@pages/base_page/base_page";
 import { ProductDetailsPage, ProductsPage } from "@pages";
 import { getRandomObjectProperty } from "helpers/helper_functions";
+import { users } from "@data_providers/user_details";
 
-test.describe("Products browsing", () => {
+test.describe("Browse products", () => {
+  test.use({ storageState: users.productsUser1.authFile });
+
   test.beforeEach(async ({ page }) => {
     await blockAds(page);
     await navigateToPage(page, "homepage");
@@ -80,6 +83,16 @@ test.describe("Products browsing", () => {
         `Brand: ${womenDressBrand}`,
       );
     });
+  });
+});
+
+test.describe("Search products", () => {
+  test.use({ storageState: users.productsUser2.authFile });
+
+  test.beforeEach(async ({ page }) => {
+    await blockAds(page);
+    await navigateToPage(page, "homepage");
+    await acceptCookies(page);
   });
 
   test("Verify user can search specific product", async ({ page }) => {

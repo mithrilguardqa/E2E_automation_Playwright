@@ -9,13 +9,15 @@ import {
 import { ProductCategory, products, UserType } from "@data_providers/products";
 import { clearCart } from "@pages/cart_page/cart_page";
 import { clickContinueShoppingButtonInToast } from "@pages/toast_page/toast_page";
-import { defaultUserDetails, UserDetails } from "@data_providers/user_details";
+import { users, UserDetails } from "@data_providers/user_details";
 import fs from "fs";
 import path from "path";
 
 const INVOICE_PATH = path.resolve("downloads/invoice.txt");
 
 test.describe("Payment", () => {
+  test.use({ storageState: users.paymentUser1.authFile });
+
   test.beforeEach(async ({ page }) => {
     if (fs.existsSync(INVOICE_PATH)) {
       fs.unlinkSync(INVOICE_PATH);
@@ -27,7 +29,7 @@ test.describe("Payment", () => {
   });
 
   test("Check payment flow", async ({ page }) => {
-    const defaultUser: UserDetails = defaultUserDetails;
+    const paymentUser: UserDetails = users.paymentUser1.details;
 
     const { name: jeansProductOneName, price: jeansProductOnePrice } =
       products[UserType.Men][ProductCategory.Jeans][0];
@@ -39,7 +41,7 @@ test.describe("Payment", () => {
     let orderTotalPrice: number;
     const productsQuantity: string = "1";
 
-    const cardHolderName = `${defaultUser.first_name} ${defaultUser.last_name}`;
+    const cardHolderName = `${paymentUser.first_name} ${paymentUser.last_name}`;
     const cardNumber = "4242424242424242";
     const cvv = "123";
     const expirationMonth = "11";
