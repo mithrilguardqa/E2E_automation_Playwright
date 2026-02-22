@@ -12,7 +12,7 @@ import {
   navigateToPage,
   verifyBreadCrumbNav,
 } from "@pages/base_page/base_page";
-import { ProductDetailsPage, ProductsPage } from "@pages";
+import { ProductsPage } from "@pages";
 import { getRandomObjectProperty } from "helpers/helper_functions";
 import { users } from "@data_providers/user_details";
 
@@ -75,7 +75,7 @@ test.describe("Browse products", () => {
     });
 
     await test.step("Verify product details", async () => {
-      await ProductDetailsPage.verifyProductDetails(
+      await ProductsPage.verifyProductDetails(
         page,
         womenDressName,
         womenDressCategory,
@@ -139,7 +139,7 @@ test.describe("Search products", () => {
     });
 
     await test.step("Verify product details", async () => {
-      await ProductDetailsPage.verifyProductDetails(
+      await ProductsPage.verifyProductDetails(
         page,
         randomJeansProductName,
         jeansProductCategory,

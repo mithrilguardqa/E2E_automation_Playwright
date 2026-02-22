@@ -39,7 +39,7 @@ export const navigateThroughProductsPages = async <U extends UserType>(
       [ProductCategory.Dress]: elements.kidsSectionBabyDressButton,
     },
   };
-  
+
   await clickElement(page, accordionLocators[userType], true);
 
   await clickElement(page, categoryLocators[userType][category], false);
@@ -86,6 +86,23 @@ export const verifyProductNames = async (page: Page, productName: string): Promi
   for (const name of actualProductNames) {
     expect(name.toLowerCase()).toContain(productName.toLowerCase());
   }
+};
+
+export const verifyProductDetails = async (
+  page: Page,
+  productName: string,
+  productCategory: string,
+  productPrice: string,
+  productBrand: string,
+): Promise<void> => {
+  await checkElementText(page, elements.productName, productName);
+  await checkElementText(page, elements.productCategory, productCategory);
+  await checkElementText(page, elements.productPrice, productPrice);
+  await checkElementText(page, elements.productBrand, productBrand);
+};
+
+export const clickAddToCart = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.addToCartButton, false);
 };
 
 // Search functions

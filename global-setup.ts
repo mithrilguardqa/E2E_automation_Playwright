@@ -1,49 +1,40 @@
-import { Browser, chromium, Page } from "@playwright/test";
+import { APIRequestContext, request } from "@playwright/test";
 import config from "@env";
-import { baseElements } from "@pages/base_page/base.elements";
-import { LoginPage } from "@pages";
-import { users, UserAuth } from "@data_providers/user_details";
+import { users } from "@data_providers/user_details";
 import fs from "fs";
 
-const AUTH_MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
 const MAX_RETRIES = 3;
 
-function isAuthFileValid(authFile: string): boolean {
-  if (!fs.existsSync(authFile)) return false;
-
-  const stats = fs.statSync(authFile);
-  const ageMs = Date.now() - stats.mtimeMs;
-  return ageMs < AUTH_MAX_AGE_MS;
+async function getToken(context: APIRequestContext): Promise<string> {
+  const response = await context.get("/login");
+  const html = await response.text();
+  const match = html.match(/name="csrfmiddlewaretoken" value="([^"]+)"/);
+  if (!match) throw new Error("CSRF token not found in login page");
+  return match[1];
 }
 
-async function loginAndSaveAuth(browser: Browser, email: string, authFile: string): Promise<void> {
+async function loginAndSaveAuth(email: string, authFile: string): Promise<void> {
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    const context = await browser.newContext();
-    const page: Page = await context.newPage();
+    const context = await request.newContext({ baseURL: config.baseUrl });
 
     try {
-      await page.goto(config.baseUrl, { waitUntil: "networkidle" });
+      const csrfToken = await getToken(context);
 
-      try {
-        const banner = page.locator(baseElements.consentBanner);
-        await banner.waitFor({ state: "visible", timeout: 5000 });
-        await banner.click();
-        await banner.waitFor({ state: "hidden", timeout: 3000 });
-      } catch {
-        // Consent banner did not appear
-      }
+      await context.post("/login", {
+        headers: { Referer: `${config.baseUrl}login` },
+        form: {
+          csrfmiddlewaretoken: csrfToken,
+          email,
+          password: config.password,
+        },
+      });
 
-      await LoginPage.clickOnSignupLoginButtonNavBar(page);
-      await LoginPage.fillLoginEmail(page, email);
-      await LoginPage.fillLoginPassword(page, config.password);
-      await LoginPage.clickLoginSubmit(page);
-
-      await page.context().storageState({ path: authFile });
+      await context.storageState({ path: authFile });
       return;
     } catch (error) {
       if (attempt === MAX_RETRIES) throw error;
     } finally {
-      await context.close();
+      await context.dispose();
     }
   }
 }
@@ -51,19 +42,13 @@ async function loginAndSaveAuth(browser: Browser, email: string, authFile: strin
 async function globalSetup() {
   if (process.env.SKIP_GLOBAL_SETUP === "true") return;
 
-  const usersToLogin: UserAuth[] = Object.values(users).filter(
-    (user) => !isAuthFileValid(user.authFile),
+  fs.mkdirSync(".auth", { recursive: true });
+
+  await Promise.all(
+    Object.values(users).map((user) =>
+      loginAndSaveAuth(user.email, user.authFile),
+    ),
   );
-
-  if (usersToLogin.length === 0) return;
-
-  const browser: Browser = await chromium.launch({ headless: true });
-
-  for (const user of usersToLogin) {
-    await loginAndSaveAuth(browser, user.email, user.authFile);
-  }
-
-  await browser.close();
 }
 
 export default globalSetup;

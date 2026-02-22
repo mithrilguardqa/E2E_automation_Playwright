@@ -7,7 +7,7 @@ import {
   products,
   getRandomProduct,
 } from "@data_providers/products";
-import { ProductDetailsPage, ProductsPage, CartPage } from "@pages";
+import { ProductsPage, CartPage } from "@pages";
 import {
   acceptCookies,
   blockAds,
@@ -75,7 +75,7 @@ test.describe("Verify user can add products to cart", () => {
     });
 
     await test.step("Add product to cart", async () => {
-      await ProductDetailsPage.clickAddToCart(page);
+      await ProductsPage.clickAddToCart(page);
     });
 
     await test.step("Verify successfully added to cart modal is displayed", async () => {
