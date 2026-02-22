@@ -15,3 +15,7 @@ node_modules/
 
 # Auth
 .auth/login.json
+
+# Downloads — keep the folder, ignore its contents
+downloads/*
+!downloads/.gitkeep

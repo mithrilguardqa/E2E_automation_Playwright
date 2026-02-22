@@ -39,7 +39,7 @@ export const navigateThroughProductsPages = async <U extends UserType>(
       [ProductCategory.Dress]: elements.kidsSectionBabyDressButton,
     },
   };
-
+  
   await clickElement(page, accordionLocators[userType], true);
 
   await clickElement(page, categoryLocators[userType][category], false);
