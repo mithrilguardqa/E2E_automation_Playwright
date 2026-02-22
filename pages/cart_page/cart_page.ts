@@ -4,7 +4,8 @@ import {
   checkElementText,
   clickElement,
   getLocatorCount,
-  getAllMatchingElementsText,
+  fillFieldInput,
+  getLocator,
 } from "../base_page/base_page.js";
 import { elements } from "./cart.elements.js";
 
@@ -26,10 +27,17 @@ export const clearCart = async (page: Page): Promise<void> => {
   }
 };
 
-// Check functions
-export const checkIsCartEmpty = async (page: Page): Promise<boolean> => {
-  const cartRowCount = await getLocatorCount(page, elements.cartTableBody + "//tr");
-  return cartRowCount === 0;
+export const addCommentToOrder = async (page: Page, comment: string): Promise<void> => {
+  const field: Locator = await getLocator(page, elements.commentInput);
+
+  await field.click();
+  await expect(field).toBeEditable();
+  await field.clear();
+  await field.pressSequentially(comment, { delay: 10 });
+};
+
+export const clickPlaceOrderButton = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.placeOrderButton, false);
 };
 
 // Verify functions
@@ -165,4 +173,10 @@ export const verifyOrderDetails = async (
 
 export const verifyOrderTotalPrice = async (page: Page, totalPrice: string): Promise<void> => {
   await checkElementText(page, elements.orderTotalPrice, totalPrice);
+};
+
+// Check functions
+export const checkIsCartEmpty = async (page: Page): Promise<boolean> => {
+  const cartRowCount = await getLocatorCount(page, elements.cartTableBody + "//tr");
+  return cartRowCount === 0;
 };

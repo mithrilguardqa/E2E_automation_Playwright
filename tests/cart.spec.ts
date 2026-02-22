@@ -7,7 +7,7 @@ import {
   products,
   getRandomProduct,
 } from "@data_providers/products";
-import { ProductDetailsPage, ProductsPage, CartPage } from "@pages";
+import { ProductsPage, CartPage } from "@pages";
 import {
   acceptCookies,
   blockAds,
@@ -20,16 +20,17 @@ import {
   viewCartButtonInToast,
 } from "@pages/toast_page/toast_page";
 import { addProductToCart } from "@pages/homepage/homepage";
-import { defaultUserDetails } from "@data_providers/user_details";
+import { users } from "@data_providers/user_details";
 
-test.describe.configure({ mode: "serial" });
-test.describe("Cart and checkout tests", () => {
-  const productsToAddToCart: Product[] = getAllProductsByCategory(ProductCategory.TopsAndShirts);
-  const { name: product1Name, price: price1 } = productsToAddToCart[0];
-  const { name: product2Name, price: price2 } = productsToAddToCart[1];
-  const product1Price = String(`Rs. ${price1}`); // Rs. 499
-  const product2Price = String(`Rs. ${price2}`);
-  const productsQuantity: string = "1";
+const productsToAddToCart: Product[] = getAllProductsByCategory(ProductCategory.TopsAndShirts);
+const { name: product1Name, price: price1 } = productsToAddToCart[0];
+const { name: product2Name, price: price2 } = productsToAddToCart[1];
+const product1Price = String(`Rs. ${price1}`);
+const product2Price = String(`Rs. ${price2}`);
+const productsQuantity: string = "1";
+
+test.describe("Verify user can add products to cart", () => {
+  test.use({ storageState: users.cartUser1.authFile });
 
   const randomJeansProduct: Product = getRandomProduct(
     products[UserType.Men][ProductCategory.Jeans],
@@ -74,7 +75,7 @@ test.describe("Cart and checkout tests", () => {
     });
 
     await test.step("Add product to cart", async () => {
-      await ProductDetailsPage.clickAddToCart(page);
+      await ProductsPage.clickAddToCart(page);
     });
 
     await test.step("Verify successfully added to cart modal is displayed", async () => {
@@ -88,6 +89,16 @@ test.describe("Cart and checkout tests", () => {
     await test.step("Verify user is on cart page", async () => {
       await CartPage.verifyUserIsOnCartPage(page);
     });
+  });
+});
+
+test.describe("Verify user can remove products from the cart", () => {
+  test.use({ storageState: users.cartUser2.authFile });
+
+  test.beforeEach(async ({ page }) => {
+    await navigateToPage(page, "homepage");
+    await acceptCookies(page);
+    await blockAds(page);
   });
 
   test("Verify user can remove products from the cart", async ({ page }) => {
@@ -120,6 +131,18 @@ test.describe("Cart and checkout tests", () => {
     await test.step("Verify cart is empty", async () => {
       await CartPage.checkIsCartEmpty(page);
     });
+  });
+});
+
+test.describe("Review order details in checkout page", () => {
+  test.use({ storageState: users.cartUser3.authFile });
+
+  const cartUser3 = users.cartUser3.details;
+
+  test.beforeEach(async ({ page }) => {
+    await navigateToPage(page, "homepage");
+    await acceptCookies(page);
+    await blockAds(page);
   });
 
   test("Review order details in checkout page", async ({ page }) => {
@@ -157,32 +180,32 @@ test.describe("Cart and checkout tests", () => {
     await test.step("Verify delivery and billing addresses are correct", async () => {
       await CartPage.verifyDeliveryAddressDetails(
         page,
-        defaultUserDetails.first_name,
-        defaultUserDetails.last_name,
-        defaultUserDetails.company,
-        defaultUserDetails.address1,
-        defaultUserDetails.address2,
-        defaultUserDetails.country,
-        defaultUserDetails.state,
-        defaultUserDetails.city,
-        defaultUserDetails.zipcode,
-        defaultUserDetails.phone,
+        cartUser3.first_name,
+        cartUser3.last_name,
+        cartUser3.company,
+        cartUser3.address1,
+        cartUser3.address2,
+        cartUser3.country,
+        cartUser3.state,
+        cartUser3.city,
+        cartUser3.zipcode,
+        cartUser3.phone,
       );
     });
 
     await test.step("Verify billing address details are correct", async () => {
       await CartPage.verifyBillingAddressDetails(
         page,
-        defaultUserDetails.first_name,
-        defaultUserDetails.last_name,
-        defaultUserDetails.company,
-        defaultUserDetails.address1,
-        defaultUserDetails.address2,
-        defaultUserDetails.country,
-        defaultUserDetails.state,
-        defaultUserDetails.city,
-        defaultUserDetails.zipcode,
-        defaultUserDetails.phone,
+        cartUser3.first_name,
+        cartUser3.last_name,
+        cartUser3.company,
+        cartUser3.address1,
+        cartUser3.address2,
+        cartUser3.country,
+        cartUser3.state,
+        cartUser3.city,
+        cartUser3.zipcode,
+        cartUser3.phone,
       );
     });
 

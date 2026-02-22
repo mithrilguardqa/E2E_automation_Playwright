@@ -23,4 +23,15 @@ export const elements = Object.freeze({
   productsCardsContainers: `//*[@class='features_items']//*[@class='single-products']`,
   productsCardNames: `//*[@class='single-products']//div[@class='productinfo text-center']//p`,
   productsCardPrices: `//*[@class='single-products']//div[@class='productinfo text-center']//h2`,
+
+  //Product details page elements
+  productName: `//*[@class='product-information']//h2`,
+  productCategory: `//p[contains(text(),'Category')]`,
+  productPrice: `//span[contains(text(),'Rs.')]`,
+  productBrand: `//b[contains(text(),'Brand:')]/parent::*`,
+  addToCartButton: `//button[contains(@class,'cart')]`,
+  reviewNameField: `#name`,
+  reviewEmailField: `#email`,
+  reviewReviewTextArea: `#review`,
+  submitReviewButton: `#button-review`,
 });

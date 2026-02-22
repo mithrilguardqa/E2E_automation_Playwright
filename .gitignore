@@ -14,4 +14,8 @@ node_modules/
 /playwright/.auth/
 
 # Auth
-.auth/login.json
+.auth/
+
+# Downloads — keep the folder, ignore its contents
+downloads/*
+!downloads/.gitkeep

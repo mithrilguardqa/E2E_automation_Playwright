@@ -88,6 +88,23 @@ export const verifyProductNames = async (page: Page, productName: string): Promi
   }
 };
 
+export const verifyProductDetails = async (
+  page: Page,
+  productName: string,
+  productCategory: string,
+  productPrice: string,
+  productBrand: string,
+): Promise<void> => {
+  await checkElementText(page, elements.productName, productName);
+  await checkElementText(page, elements.productCategory, productCategory);
+  await checkElementText(page, elements.productPrice, productPrice);
+  await checkElementText(page, elements.productBrand, productBrand);
+};
+
+export const clickAddToCart = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.addToCartButton, false);
+};
+
 // Search functions
 export const searchProduct = async (page: Page, searchQuery: string): Promise<void> => {
   await fillFieldInput(page, elements.searchInput, searchQuery, "value");

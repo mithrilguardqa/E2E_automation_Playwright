@@ -12,4 +12,10 @@ export const elements = Object.freeze({
 
   // Order total price
   orderTotalPrice: `(//p[@class='cart_total_price'])[last()]`,
+
+  // Comment input
+  commentInput: `//*[@id='ordermsg']//textarea`,
+
+  // Place order button
+  placeOrderButton: `//*[contains(@class,'btn') and text()='Place Order']`,
 });

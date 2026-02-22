@@ -151,11 +151,26 @@
 ### 8. Finalize Order Payment (Positive)
 
 - **Scope:** Verify that a user can finalize an order by entering payment details, confirming, and downloading the invoice.
-- **Prerequisites:** User is logged in and has items in the cart ready for checkout.
+- **Prerequisites:** User is logged in. The cart is empty at the start of the test. Any previously downloaded invoice file is deleted before the test runs.
 
 **Steps:**
 
-1.
+1. Navigate to the **Cart** page and ensure it is empty (clear any existing items).
+2. Navigate to the **Products** page and verify the user is on the correct page.
+3. Navigate to the **Men > Jeans** category via the sidebar.
+4. Add **two jeans products** to the cart, clicking **Continue Shopping** after each.
+5. Navigate to the **Cart** page and verify it contains the correct products.
+6. Click **Proceed To Checkout**.
+7. Verify the **order details** for each product — name, price, and quantity.
+8. Verify the **order total price** is the correct sum of both products' prices.
+9. Add a **comment** to the order (e.g. _"Test comment"_).
+10. Click **Place Order** to navigate to the Payment page.
+11. Verify the breadcrumb navigation shows _"Payment"_.
+12. Fill in the **card details**: name on card, card number, CVV, expiration month, and expiration year.
+13. Click the **Pay and Confirm Order** button.
+14. Verify a **success message** is displayed (_"Order Placed!"_ and _"Congratulations! Your order has been confirmed!"_).
+15. Click **Download Invoice** and save the file locally.
+16. Read the downloaded invoice text and verify it contains the expected total purchase amount.
 
 ---
 
