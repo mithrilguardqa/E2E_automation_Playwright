@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { acceptCookies, navigateToPage } from "@pages/base_page/base_page";
+import { acceptCookies, blockAds, navigateToPage } from "@pages/base_page/base_page";
 import { Homepage, LoginPage } from "@pages";
 import { generateUserData } from "@data_providers/data_generators";
 import { defaultUserDetails } from "@data_providers/user_details";
@@ -9,6 +9,7 @@ test.describe("Login and registration tests", () => {
   test.use({ storageState: { cookies: [], origins: [] } });
 
   test.beforeEach(async ({ page }) => {
+    await blockAds(page);
     await navigateToPage(page, "homepage");
     await acceptCookies(page);
   });
