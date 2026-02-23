@@ -37,6 +37,18 @@ export const fillFieldInput = async (
   }
 };
 
+export const fillFieldNoExpect = async (
+  page: Page,
+  selector: string,
+  input: string,
+): Promise<void> => {
+  const field: Locator = await getLocator(page, selector);
+  await field.click();
+  await expect(field).toBeEditable();
+  await field.clear();
+  await field.pressSequentially(input, { delay: 10 });
+};
+
 export const clickElement = async (
   page: Page,
   selector: string,

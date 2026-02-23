@@ -34,4 +34,5 @@ export const elements = Object.freeze({
   reviewEmailField: `#email`,
   reviewReviewTextArea: `#review`,
   submitReviewButton: `#button-review`,
+  reviewSection: `//*[@id='review-section']//*[text()='Thank you for your review.']`,
 });
