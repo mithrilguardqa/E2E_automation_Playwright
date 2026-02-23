@@ -1,0 +1,7 @@
+userName: $BROWSERSTACK_USERNAME
+accessKey: $BROWSERSTACK_ACCESS_KEY
+projectName: Demo Project
+buildName: $BUILD_NAME
+testObservabilityOptions:
+  reportPath: results.xml
+  format: junit
