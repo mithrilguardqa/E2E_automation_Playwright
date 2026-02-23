@@ -1,14 +1,27 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 import {
   checkElementText,
   clickElement,
   fillFieldInput,
   getAllMatchingElementsText,
+  fillFieldNoExpect,
   getLocatorCount,
   isElementVisible,
 } from "../base_page/base_page.js";
 import { elements } from "./products.elements.js";
 import { AllowedCategory, ProductCategory, UserType } from "@data_providers/products.js";
+
+// Fill functions
+export const fillReviewFields = async (
+  page: Page,
+  name: string,
+  email: string,
+  review: string,
+): Promise<void> => {
+  await fillFieldNoExpect(page, elements.reviewNameField, name);
+  await fillFieldNoExpect(page, elements.reviewEmailField, email);
+  await fillFieldNoExpect(page, elements.reviewReviewTextArea, review);
+};
 
 // Navigate through products pages
 export const navigateThroughProductsPages = async <U extends UserType>(
@@ -50,6 +63,19 @@ export const clickViewProductButton = async (page: Page, productName: string): P
   const viewProductSelector: string = `//p[contains(text(),'${productName}')]/ancestor::div[@class='single-products']//following-sibling::div[@class='choose']//*[text()='View Product']`;
 
   await clickElement(page, viewProductSelector, false);
+};
+
+export const clickSubmitReviewButton = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.submitReviewButton, false);
+};
+
+export const getReviewSectionText = async (page: Page): Promise<string> => {
+  await isElementVisible(page, elements.reviewSection, true);
+  const reviewSectionText: string | null = await page.locator(elements.reviewSection).textContent();
+  if (!reviewSectionText) {
+    throw new Error("Review section text is not visible");
+  }
+  return reviewSectionText;
 };
 
 // Verify functions

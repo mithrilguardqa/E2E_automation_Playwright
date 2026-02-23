@@ -4,7 +4,6 @@ import {
   checkElementText,
   clickElement,
   getLocatorCount,
-  fillFieldInput,
   getLocator,
 } from "../base_page/base_page.js";
 import { elements } from "./cart.elements.js";

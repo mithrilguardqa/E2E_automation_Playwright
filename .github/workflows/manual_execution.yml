@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: E2E Tests - Manual Execution
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Test environment"
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            playwright-browsers-${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run E2E Tests
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          TEST_ENV: ${{ inputs.environment }}
+        run: |
+          echo "Running E2E tests on environment: $TEST_ENV"
+          xvfb-run --auto-servernum npx playwright test tests/
+
+      - name: Generate build name
+        if: always()
+        id: build-name
+        run: |
+          BUILD_NAME="E2E tests report - Manual execution on ${{ inputs.environment }} - Build ${{ github.run_number }}"
+          echo "build_name=${BUILD_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Upload results to BrowserStack Test Management
+        if: always()
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          BUILD_NAME: ${{ steps.build-name.outputs.build_name }}
+          PROJECT_NAME: "Mithril Guard"
+        run: npm run upload-results
+
+      - name: Upload JUnit Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-tests-junit-results
+          path: results.xml
+          retention-days: 7
+
+      - name: Upload Playwright HTML Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-tests-html-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload Playwright Traces
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-tests-traces
+          path: test-results/
+          retention-days: 7

@@ -29,3 +29,7 @@ export const addProductToCart = async (page: Page, productName: string): Promise
   await page.locator(addToCartButton).scrollIntoViewIfNeeded();
   await clickElement(page, addToCartButton, false);
 };
+
+export const clickContactUsButton = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.contactUsButtonNavBar, false);
+};
