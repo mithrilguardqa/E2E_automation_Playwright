@@ -1,4 +1,3 @@
-import path from "path";
 import { expect, test } from "@playwright/test";
 import { users } from "@data_providers/user_details";
 import { blockAds, navigateToPage } from "@pages/base_page/base_page";
@@ -6,7 +5,8 @@ import { acceptCookies } from "@pages/base_page/base_page";
 import { ProductCategory, products, UserType } from "@data_providers/products";
 import { ProductsPage, ContactUsPage } from "@pages";
 import { clickContactUsButton, verifyHomepageIsVisible } from "@pages/homepage/homepage";
-import { fillContactUsForm, verifyUserIsOnContactUsPage } from "@pages/contact_us/contact_us_page";
+import { fillContactUsForm } from "@pages/contact_us/contact_us_page";
+import path from "path";
 
 test.describe("Check user can send feedback", () => {
   test.use({ storageState: users.default.authFile });

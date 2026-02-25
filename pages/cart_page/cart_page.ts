@@ -5,8 +5,8 @@ import {
   clickElement,
   getLocatorCount,
   getLocator,
-} from "../base_page/base_page.js";
-import { elements } from "./cart.elements.js";
+} from "@pages/base_page/base_page";
+import { elements } from "@pages/cart_page/cart.elements";
 
 //Click functions
 export const clickEmptyCartNavigateToProductsButton = async (page: Page): Promise<void> => {
@@ -39,15 +39,21 @@ export const clickPlaceOrderButton = async (page: Page): Promise<void> => {
   await clickElement(page, elements.placeOrderButton, false);
 };
 
+// Check functions
+export const checkIsCartEmpty = async (page: Page): Promise<boolean> => {
+  const cartRowCount = await getLocatorCount(page, elements.cartTableBody + "//tr");
+  return cartRowCount === 0;
+};
+
 // Verify functions
+export const verifyUserIsOnCartPage = async (page: Page): Promise<void> => {
+  await page.waitForURL(`**/view_cart`);
+};
+
 export const verifyEmptyCartMessage = async (page: Page): Promise<void> => {
   const emptyCartMessage: string = `Cart is empty! Click here to buy products.`;
   await isElementVisible(page, elements.emptyCartMessage, true);
   await checkElementText(page, elements.emptyCartMessage, emptyCartMessage);
-};
-
-export const verifyUserIsOnCartPage = async (page: Page): Promise<void> => {
-  await page.waitForURL(`**/view_cart`);
 };
 
 export const verifyCartHasTheCorrectProducts = async (
@@ -172,10 +178,4 @@ export const verifyOrderDetails = async (
 
 export const verifyOrderTotalPrice = async (page: Page, totalPrice: string): Promise<void> => {
   await checkElementText(page, elements.orderTotalPrice, totalPrice);
-};
-
-// Check functions
-export const checkIsCartEmpty = async (page: Page): Promise<boolean> => {
-  const cartRowCount = await getLocatorCount(page, elements.cartTableBody + "//tr");
-  return cartRowCount === 0;
 };

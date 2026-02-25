@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { elements } from "@pages/login_page/elements";
 import {
   clickElement,
   fillFieldInput,
@@ -6,8 +7,7 @@ import {
   checkElementValue,
   isElementEnabled,
   isElementVisible,
-} from "../base_page/base_page.js";
-import { elements } from "./elements.js";
+} from "@pages/base_page/base_page";
 
 // Login form
 export const clickOnSignupLoginButtonNavBar = async (page: Page): Promise<void> => {

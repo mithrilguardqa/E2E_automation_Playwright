@@ -10,6 +10,7 @@
     "test/e2e/ui": "npx playwright test --ui",
     "test/e2e/headed": "npx playwright test --headed",
     "test/e2e/headed/debug": "npx playwright test --headed --debug",
+    "test/browserstack": "npm run test; BUILD_NAME=\"Local run of all tests $(date '+%Y/%m/%d->%H:%Mh')\" npm run upload-results",
     "upload-results": "node upload-results.js"
   },
   "keywords": [],
