@@ -1,4 +1,5 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
+import { elements } from "@pages/products_page/products.elements";
 import {
   checkElementText,
   clickElement,
@@ -7,9 +8,8 @@ import {
   fillFieldNoExpect,
   getLocatorCount,
   isElementVisible,
-} from "../base_page/base_page.js";
-import { elements } from "./products.elements.js";
-import { AllowedCategory, ProductCategory, UserType } from "@data_providers/products.js";
+} from "@pages/base_page/base_page";
+import { AllowedCategory, ProductCategory, UserType } from "@data_providers/products";
 
 // Fill functions
 export const fillReviewFields = async (
@@ -69,6 +69,10 @@ export const clickSubmitReviewButton = async (page: Page): Promise<void> => {
   await clickElement(page, elements.submitReviewButton, false);
 };
 
+export const clickAddToCart = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.addToCartButton, false);
+};
+
 export const getReviewSectionText = async (page: Page): Promise<string> => {
   await isElementVisible(page, elements.reviewSection, true);
   const reviewSectionText: string | null = await page.locator(elements.reviewSection).textContent();
@@ -125,10 +129,6 @@ export const verifyProductDetails = async (
   await checkElementText(page, elements.productCategory, productCategory);
   await checkElementText(page, elements.productPrice, productPrice);
   await checkElementText(page, elements.productBrand, productBrand);
-};
-
-export const clickAddToCart = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.addToCartButton, false);
 };
 
 // Search functions

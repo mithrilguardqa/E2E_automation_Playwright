@@ -12,8 +12,8 @@
 |   2 | [Login User (Positive)](#2-login-user-positive)                                  | Login & Registration |
 |   3 | [View All Products & Detail](#3-view-all-products--product-detail-positive)      | Product Browsing     |
 |   4 | [Search Products](#4-search-products-positive)                                   | Product Browsing     |
-|   5 | [Add Products to Cart](#5-add-products-to-cart-positive)                         | Cart & Checkout      |
-|   6 | [Remove Products from Cart](#6-update-product-quantity-in-cart-positive)         | Cart & Checkout      |
+|   5 | [Add Products to Cart](#5-add-products-to-the-cart-positive)                     | Cart & Checkout      |
+|   6 | [Remove Products from Cart](#6-remove-products-from-the-cart-positive)           | Cart & Checkout      |
 |   7 | [Review Order Details in Checkout](#7-review-order-details-in-checkout-positive) | Cart & Checkout      |
 |   8 | [Finalize Order Payment](#8-finalize-order-payment-positive)                     | Cart & Checkout      |
 |   9 | [Submit Product Review](#9-submit-product-review-positive)                       | Reviews & Feedback   |
@@ -102,30 +102,37 @@
 
 ### 5. Add Products to the Cart (Positive)
 
-- **Scope:** Verify that a user can add multiple products to the shopping cart and view them.
-- **Prerequisites:** User is on the product listing page (e.g. _All Products_ or home page).
+- **Scope:** Verify that a user can navigate from an empty cart to the product catalogue, add a product to the cart from its detail page, and land on the cart page.
+- **Prerequisites:** User is logged in and on the home page.
 
 **Steps:**
 
-1. On the products list, hover over the first product and click **Add to cart**.
-2. When the cart modal appears, click **Continue Shopping** to continue browsing.
-3. Hover over a second product and click **Add to cart** as well.
-4. In the cart modal, click **View Cart** to open the cart page.
-5. Verify that both products are present in the cart with correct details (product names, quantities, individual prices).
-6. Verify that the cart total reflects the sum of the products' prices (taking quantity into account for each).
+1. Navigate to the **Cart** page and clear any existing items.
+2. Verify the breadcrumb navigation shows _"Shopping Cart"_.
+3. Verify the cart is empty (empty-cart message is displayed).
+4. Click the **here** link in the empty-cart message to navigate to the products page.
+5. Verify the user is on the _All Products_ page.
+6. Navigate to the **Men > Jeans** category via the sidebar.
+7. Click **View Product** on a random Jeans product to open its detail page.
+8. Click **Add to cart** on the product detail page.
+9. Verify the _"Added!"_ toast notification is displayed.
+10. Click **View Cart** in the toast to open the cart page.
+11. Verify the user is on the cart page with the product present.
 
 ---
 
-### 6. Remove Items from the Cart (Positive)
+### 6. Remove Products from the Cart (Positive)
 
-- **Scope:** Verify that the user can remove a product from the cart successfully.
-- **Prerequisites:** At least one product is already added to the cart. User is on the _View Cart_ page.
+- **Scope:** Verify that a user can add products to the cart and then remove all of them, leaving the cart empty.
+- **Prerequisites:** User is logged in and on the home page. The cart may or may not contain items.
 
 **Steps:**
 
-1. On the cart page, identify a product listed and click the **✕ Remove** button for that product.
-2. Confirm that the product is removed from the cart list immediately.
-3. Verify that the cart is updated: the removed item no longer appears, and the cart total reflects the removal (or shows zero items if it was the only product).
+1. On the home page, add multiple products to the cart by hovering over each and clicking **Add to cart**, then clicking **Continue Shopping** after each addition.
+2. Navigate to the **Cart** page.
+3. Verify that the cart contains the correct products (matching the names of the items that were added).
+4. Remove all products from the cart by clicking the **✕ Remove** button for each item.
+5. Verify the cart is empty (empty-cart message is displayed and no products remain).
 
 ---
 

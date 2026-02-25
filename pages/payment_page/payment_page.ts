@@ -4,13 +4,10 @@ import {
   clickElement,
   fillFieldInput,
   isElementVisible,
-} from "../base_page/base_page";
-import { elements } from "./element";
+} from "@pages/base_page/base_page";
+import { elements } from "@pages/payment_page/element";
 
-export const verifyUserIsOnPaymentPage = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.paymentPageTitle, true);
-};
-
+// Fill functions
 export const fillCardFields = async (
   page: Page,
   nameOnCard: string,
@@ -26,8 +23,18 @@ export const fillCardFields = async (
   await fillFieldInput(page, elements.expirationYearField, expirationYear, "value");
 };
 
+// Click functions
+export const downloadInvoice = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.downloadInvoiceButton, false);
+};
+
 export const clickPayAndConfirmButton = async (page: Page): Promise<void> => {
   await clickElement(page, elements.payAndConfirmButton, false);
+};
+
+// Verify functions
+export const verifyUserIsOnPaymentPage = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.paymentPageTitle, true);
 };
 
 export const verifySuccessMessage = async (page: Page): Promise<void> => {
@@ -40,8 +47,3 @@ export const verifySuccessMessage = async (page: Page): Promise<void> => {
     "Congratulations! Your order has been confirmed!",
   );
 };
-
-export const downloadInvoice = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.downloadInvoiceButton, false);
-};
-

@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { baseElements } from "./base.elements.js";
-import config from "../../env.config.js";
-import { AllowedCategory, Brand, UserType } from "@data_providers/products.js";
+import { baseElements } from "./base.elements";
+import config from "@env";
+import { AllowedCategory, Brand, UserType } from "@data_providers/products";
 
 export const randomString = (
   length?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13,

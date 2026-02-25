@@ -1,22 +1,14 @@
 import { Page } from "@playwright/test";
-import { checkElementText, clickElement, isElementVisible } from "@pages/base_page/base_page.js";
-import { elements } from "./elements.js";
+import { checkElementText, clickElement, isElementVisible } from "@pages/base_page/base_page";
+import { elements } from "@pages/homepage/elements";
 
-export const verifyHomepageIsVisible = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.homepageLogo, true);
-};
-
-export const verifyUserIsLogged = async (page: Page, username: string): Promise<void> => {
-  await isElementVisible(page, elements.logoutButtonNavBar, true);
-  await checkElementText(page, elements.loggedInAsUsername, username);
+// Click functions
+export const clickContactUsButton = async (page: Page): Promise<void> => {
+  await clickElement(page, elements.contactUsButtonNavBar, false);
 };
 
 export const deleteUserAccount = async (page: Page): Promise<void> => {
   await clickElement(page, elements.deleteAccountButtonNavBar, false);
-};
-
-export const verifyUserIsLoggedOut = async (page: Page): Promise<void> => {
-  await isElementVisible(page, elements.logoutButtonNavBar, false);
 };
 
 export const logout = async (page: Page): Promise<void> => {
@@ -30,6 +22,16 @@ export const addProductToCart = async (page: Page, productName: string): Promise
   await clickElement(page, addToCartButton, false);
 };
 
-export const clickContactUsButton = async (page: Page): Promise<void> => {
-  await clickElement(page, elements.contactUsButtonNavBar, false);
+// Verify functions
+export const verifyHomepageIsVisible = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.homepageLogo, true);
+};
+
+export const verifyUserIsLogged = async (page: Page, username: string): Promise<void> => {
+  await isElementVisible(page, elements.logoutButtonNavBar, true);
+  await checkElementText(page, elements.loggedInAsUsername, username);
+};
+
+export const verifyUserIsLoggedOut = async (page: Page): Promise<void> => {
+  await isElementVisible(page, elements.logoutButtonNavBar, false);
 };
