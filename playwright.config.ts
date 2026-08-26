@@ -20,11 +20,6 @@ export default defineConfig({
   use: {
     baseURL: config.baseUrl,
     trace: "on-first-retry",
-    ignoreHTTPSErrors: true,
-    bypassCSP: true,
-    launchOptions: {
-      args: ["--disable-web-security"],
-    },
   },
 
   projects: [
