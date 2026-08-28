@@ -39,4 +39,3 @@ switch (environment) {
 }
 
 export default config;
-
